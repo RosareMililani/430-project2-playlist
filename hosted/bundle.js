@@ -6,7 +6,7 @@ var handleSong = function handleSong(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#songName").val() == '' || $("#songArtist").val() == '') {
+  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '') {
     handleError("Oops! All fields are required");
     return false;
   }
@@ -39,6 +39,15 @@ var SongForm = function SongForm(props) {
     type: "text",
     name: "artist",
     placeholder: "Artist"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "rating"
+  }, "Rating (1-5): "), /*#__PURE__*/React.createElement("input", {
+    id: "songRating",
+    type: "number",
+    name: "rating",
+    step: "1",
+    min: "1",
+    max: "5"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
@@ -63,6 +72,15 @@ var SongList = function SongList(props) {
     }, "No Songs Created Yet"));
   }
 
+  var now = new Date();
+  var formattedDate = now.toLocaleDateString('en-gb', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'utc'
+  });
+  console.log(now);
+  console.log(formattedDate);
   var songNodes = props.songs.map(function (song) {
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
@@ -75,7 +93,13 @@ var SongList = function SongList(props) {
       className: "songName"
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
       className: "songArtist"
-    }, " Artist: ", song.artist));
+    }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
+      className: "songRating"
+    }, " Rating: ", song.rating, "/5"), /*#__PURE__*/React.createElement("h3", {
+      className: "songDate"
+    }, " Date : ", song.createdDate), /*#__PURE__*/React.createElement("h3", {
+      className: "songDate"
+    }, " Date Added: ", formattedDate));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"

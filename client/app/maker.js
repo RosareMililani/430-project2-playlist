@@ -3,7 +3,7 @@ const handleSong = (e) => {
 
     $("#songMessage").animate({width:'hide'},350);
 
-    if($("#songName").val() == '' || $("#songArtist").val() == ''){
+    if($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == ''){
         handleError("Oops! All fields are required");
         return false;
     }
@@ -28,6 +28,8 @@ const SongForm = (props) => {
             <input id="songName" type="text" name="name" placeholder="Song Track"/>  
             <label htmlFor="artist">Artist: </label>
             <input id="songArtist" type="text" name="artist" placeholder="Artist"/>
+            <label htmlFor="rating">Rating (1-5): </label>
+            <input id="songRating" type="number" name="rating" step="1" min="1" max="5"/>
             <input type= "hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!"/>     
         </form>
@@ -47,12 +49,28 @@ const SongList = function(props){
         );
     }
 
+    let now = new Date();
+    let formattedDate = now.toLocaleDateString(
+        'en-gb',
+        {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            timeZone: 'utc'
+        }
+    );
+    console.log(now);
+    console.log(formattedDate);
+
     const songNodes = props.songs.map(function(song){
         return (
             <div key={song._id} className="song">
                 <img src="/assets/img/domoface.jpeg" alt= "domo face" className="domoFace"/>
                 <h3 className="songName"> Name: {song.name}</h3>
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
+                <h3 className="songRating"> Rating: {song.rating}/5</h3>
+                <h3 className="songDate"> Date : {song.createdDate}</h3>
+                <h3 className="songDate"> Date Added: {formattedDate}</h3>
             </div>
         );
     });

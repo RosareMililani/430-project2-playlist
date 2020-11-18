@@ -60,14 +60,15 @@ nav:nth-child(1) {
 
 .songForm label {
     display: inline-block;
-    width: 75px;
-    margin-left: 10px;
+    width: 100px;
+    margin-left: 5px;
+    margin-right: 10px;
     font-size: 1.2em;
     float: left;
     color: white;
 }
 
-.songForm input[type=text] {
+.songForm input[type=text], .songForm input[type=number]{
     float:left;
 }
 
@@ -192,7 +193,7 @@ nav:nth-child(1) {
 #songs {
     width: 70%;
     min-width: 400px;
-    border: 2px solid #55acee;
+    /* border: 2px solid #55acee; */
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 100px;
@@ -265,7 +266,7 @@ h3.songArtist {
     font-style: italic;
 }
 
-h3.songPower {
+h3.songRating {
     float:left;
     text-align: left;
     width:130px;
