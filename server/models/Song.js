@@ -18,9 +18,9 @@ const SongSchema = new mongoose.Schema({
     set: setName,
   },
 
-  age: {
-    type: Number,
-    min: 0,
+  artist: {
+    type: String,
+    trim:true,
     required: true,
   },
 
@@ -38,7 +38,7 @@ const SongSchema = new mongoose.Schema({
 
 SongSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  age: doc.age,
+  artist: doc.artist,
 });
 
 SongSchema.statics.findByOwner = (ownerId, callback) => {
@@ -46,7 +46,7 @@ SongSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return SongModel.find(search).select('name age').lean().exec(callback);
+  return SongModel.find(search).select('name artist').lean().exec(callback);
 };
 
 SongModel = mongoose.model('Song', SongSchema);

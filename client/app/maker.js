@@ -3,7 +3,7 @@ const handleSong = (e) => {
 
     $("#songMessage").animate({width:'hide'},350);
 
-    if($("#songName").val() == '' || $("#songAge").val() == ''){
+    if($("#songName").val() == '' || $("#songArtist").val() == ''){
         handleError("Oops! All fields are required");
         return false;
     }
@@ -25,11 +25,11 @@ const SongForm = (props) => {
         className="songForm"
         >
             <label htmlFor="name">Name: </label>
-            <input id="songName" type="text" name="name" placeholder="Song Name"/>  
-            <label htmlFor="age">Age: </label>
-            <input id="songAge" type="text" name="age" placeholder="Song Age"/>
+            <input id="songName" type="text" name="name" placeholder="Song Track"/>  
+            <label htmlFor="artist">Artist: </label>
+            <input id="songArtist" type="text" name="artist" placeholder="Artist"/>
             <input type= "hidden" name="_csrf" value={props.csrf} />
-            <input className="makeSongSubmit" type="submit" value="Create Song!"/>     
+            <input className="makeSongSubmit" type="submit" value="Add Song!"/>     
         </form>
     );
 };
@@ -52,7 +52,7 @@ const SongList = function(props){
             <div key={song._id} className="song">
                 <img src="/assets/img/domoface.jpeg" alt= "domo face" className="domoFace"/>
                 <h3 className="songName"> Name: {song.name}</h3>
-                <h3 className="songAge"> Age: {song.age}</h3>
+                <h3 className="songArtist"> Artist: {song.artist}</h3>
             </div>
         );
     });

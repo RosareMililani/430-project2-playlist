@@ -6,7 +6,7 @@ var handleSong = function handleSong(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#songName").val() == '' || $("#songAge").val() == '') {
+  if ($("#songName").val() == '' || $("#songArtist").val() == '') {
     handleError("Oops! All fields are required");
     return false;
   }
@@ -31,14 +31,14 @@ var SongForm = function SongForm(props) {
     id: "songName",
     type: "text",
     name: "name",
-    placeholder: "Song Name"
+    placeholder: "Song Track"
   }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "age"
-  }, "Age: "), /*#__PURE__*/React.createElement("input", {
-    id: "songAge",
+    htmlFor: "artist"
+  }, "Artist: "), /*#__PURE__*/React.createElement("input", {
+    id: "songArtist",
     type: "text",
-    name: "age",
-    placeholder: "Song Age"
+    name: "artist",
+    placeholder: "Artist"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
@@ -46,7 +46,7 @@ var SongForm = function SongForm(props) {
   }), /*#__PURE__*/React.createElement("input", {
     className: "makeSongSubmit",
     type: "submit",
-    value: "Create Song!"
+    value: "Add Song!"
   }));
 }; //array of songs is empty- UI show no songs
 //otherwise map function to create UI for each song stored in state 
@@ -74,8 +74,8 @@ var SongList = function SongList(props) {
     }), /*#__PURE__*/React.createElement("h3", {
       className: "songName"
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
-      className: "songAge"
-    }, " Age: ", song.age));
+      className: "songArtist"
+    }, " Artist: ", song.artist));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"

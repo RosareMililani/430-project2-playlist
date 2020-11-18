@@ -15,13 +15,13 @@ const makerPage = (req, res) => {
 };
 
 const makeSong = (req, res) => {
-  if (!req.body.name || !req.body.age) {
+  if (!req.body.name || !req.body.artist) {
     return res.status(400).json({ error: 'Oops! Both name and age are required' });
   }
 
   const songData = {
     name: req.body.name,
-    age: req.body.age,
+    artist: req.body.artist,
     owner: req.session.account._id,
   };
 
