@@ -35,6 +35,14 @@ const ProfileForm = function (props) {
     );
 };
 
+/* const loadSongsFromServer = () => {
+    sendAjax('GET', '/myPage', null, (data) => {
+        ReactDOM.render(
+            <SongList songs={data.songs} />, document.querySelector("#songs")
+        );
+    });
+}; */
+
 //accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
 //without token, security on the server will prevent the form from working
 const createLoginWindow = (csrf) => {

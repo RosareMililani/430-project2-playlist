@@ -1,139 +1,109 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
+var handleSong = function handleSong(e) {
   e.preventDefault();
-  $("#domoMessage").animate({
+  $("#songMessage").animate({
     width: 'hide'
   }, 350);
 
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoPower").val() == '') {
-    handleError("RAWR! All fields are required");
+  if ($("#songName").val() == '' || $("#songAge").val() == '') {
+    handleError("Oops! All fields are required");
     return false;
   }
 
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-    loadDomosFromServer();
+  sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
+    loadSongsFromServer();
   });
   return false;
 };
 
-var DomoForm = function DomoForm(props) {
+var SongForm = function SongForm(props) {
   return /*#__PURE__*/React.createElement("form", {
-    id: "domoForm",
-    onSubmit: handleDomo,
-    name: "domoForm",
+    id: "songForm",
+    onSubmit: handleSong,
+    name: "songForm",
     action: "/maker",
     method: "POST",
-    className: "domoForm"
+    className: "songForm"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "name"
   }, "Name: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoName",
+    id: "songName",
     type: "text",
     name: "name",
-    placeholder: "Domo Name"
+    placeholder: "Song Name"
   }), /*#__PURE__*/React.createElement("label", {
     htmlFor: "age"
   }, "Age: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoAge",
+    id: "songAge",
     type: "text",
     name: "age",
-    placeholder: "Domo Age"
-  }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "power"
-  }, "Power: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoPower",
-    type: "text",
-    name: "power",
-    placeholder: "Domo Power"
+    placeholder: "Song Age"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
-    className: "makeDomoSubmit",
+    className: "makeSongSubmit",
     type: "submit",
-    value: "Make Domo"
+    value: "Create Song!"
   }));
-}; //array of domos is empty- UI show no domos
-//otherwise map function to create UI for each domo stored in state 
-//  of component. Every domo will generate a domo div and add it
-//render out a domolist with domonodes array
+}; //array of songs is empty- UI show no songs
+//otherwise map function to create UI for each song stored in state 
+//  of component. Every song will generate a song div and add it
+//render out a songList with song nodes array
 
 
-var DomoList = function DomoList(props) {
-  if (props.domos.length === 0) {
+var SongList = function SongList(props) {
+  if (props.songs.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "domoList"
+      className: "songList"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptyDomo"
-    }, "No Domos yet"));
+      className: "emptySong"
+    }, "No Songs Created Yet"));
   }
 
-  var now = new Date();
-  var formattedDate = now.toLocaleDateString('en-gb', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'utc'
-  });
-  console.log(now);
-  console.log(formattedDate);
-  var domoNodes = props.domos.map(function (domo) {
-    /* let newFormatDate = domos.createdDate.toLocaleDateString(
-        'en-gb',
-        {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            timeZone: 'utc'
-        }
-    );
-    console.log("this is new format" + newFormatDate); */
+  var songNodes = props.songs.map(function (song) {
     return /*#__PURE__*/React.createElement("div", {
-      key: domo._id,
-      className: "domo"
+      key: song._id,
+      className: "song"
     }, /*#__PURE__*/React.createElement("img", {
       src: "/assets/img/domoface.jpeg",
       alt: "domo face",
       className: "domoFace"
     }), /*#__PURE__*/React.createElement("h3", {
-      className: "domoName"
-    }, " Name: ", domo.name), /*#__PURE__*/React.createElement("h3", {
-      className: "domoAge"
-    }, " Age: ", domo.age), /*#__PURE__*/React.createElement("h3", {
-      className: "domoPower"
-    }, "Power: ", domo.power), /*#__PURE__*/React.createElement("h3", {
-      className: "domoDate"
-    }, "Date Added: ", formattedDate));
+      className: "songName"
+    }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
+      className: "songAge"
+    }, " Age: ", song.age));
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "domoList"
-  }, domoNodes);
-}; //grabs domos from the server and render a DomoList
+    className: "songList"
+  }, songNodes);
+}; //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 
 
-var loadDomosFromServer = function loadDomosFromServer() {
-  sendAjax('GET', '/getDomos', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-      domos: data.domos
-    }), document.querySelector("#domos"));
+var loadSongsFromServer = function loadSongsFromServer() {
+  sendAjax('GET', '/getSongs', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+      songs: data.songs
+    }), document.querySelector("#songs"));
   });
-}; //render out DomoForm to the page and render default DomoList
-//domos attribute of DomoList is empty array - because we dont have 
+}; //render out SongForm to the page and render default SongsList
+//songs attribute of SongList is empty array - because we dont have 
 //  data yet, but will at least get the HTML onto the page while waiting 
 //  for server
 
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
-  }), document.querySelector("#makeDomo"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-    domos: []
-  }), document.querySelector("#domos"));
-  loadDomosFromServer();
+  }), document.querySelector("#makeSong"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+    songs: []
+  }), document.querySelector("#songs"));
+  loadSongsFromServer();
 }; //allow us to get CSRF token for new submissions
 
 
@@ -151,13 +121,13 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
+  $("#songMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
+  $("#songMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;

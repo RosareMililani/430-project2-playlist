@@ -1,67 +1,66 @@
 const models = require('../models');
 
-const { Domo } = models;
+const { Song } = models;
 
 const makerPage = (req, res) => {
   // res.render('app');
-  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
-      // console.log(err);
+      console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
-    return res.render('app', { csrfToken: req.csrfToken(), domos: docs });
+    return res.render('app', { csrfToken: req.csrfToken(), songs: docs });
   });
 };
 
-const makeDomo = (req, res) => {
-  if (!req.body.name || !req.body.age || !req.body.power) {
-    return res.status(400).json({ error: 'RAWR! Name, age, and power are required' });
+const makeSong = (req, res) => {
+  if (!req.body.name || !req.body.age) {
+    return res.status(400).json({ error: 'Oops! Both name and age are required' });
   }
 
-  const domoData = {
+  const songData = {
     name: req.body.name,
     age: req.body.age,
-    power: req.body.power,
     owner: req.session.account._id,
   };
 
-  const newDomo = new Domo.DomoModel(domoData);
+  const newSong = new Song.SongModel(songData);
 
-  const domoPromise = newDomo.save();
+  const songPromise = newSong.save();
 
-  domoPromise.then(() => res.json({ redirect: '/maker' }));
+  songPromise.then(() => res.json({ redirect: '/maker' }));
 
-  domoPromise.catch((err) => {
-    // console.log(err);
+  songPromise.catch((err) => {
+    console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Domo already exists' });
+      return res.status(400).json({ error: 'Song already exists' });
     }
 
     return res.status(400).json({ error: 'An error occured' });
   });
 
-  return domoPromise;
+  return songPromise;
 };
 
-// get JSON responses of Domos for a user
+// get JSON responses of Songs for a user
 // allow our client app to update dynamically using React
 // app will update without changing pages, dynamically grab updates from the server
 //  and immediantly update the UI on screen
-const getDomos = (request, response) => {
+const getSongs = (request, response) => {
   const req = request;
   const res = response;
 
-  return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  return Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
-      // console.log(err);
+      console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
-    return res.json({ domos: docs });
+    return res.json({ songs: docs });
   });
 };
 
 module.exports.makerPage = makerPage;
-module.exports.getDomos = getDomos;
-module.exports.make = makeDomo;
+module.exports.getSongs = getSongs;
+module.exports.make = makeSong;
