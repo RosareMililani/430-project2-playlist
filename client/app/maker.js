@@ -1,14 +1,14 @@
 const handleSong = (e) => {
     e.preventDefault();
 
-    $("#songMessage").animate({width:'hide'},350);
+    $("#songMessage").animate({ width: 'hide' }, 350);
 
-    if($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == ''){
+    if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '') {
         handleError("Oops! All fields are required");
         return false;
     }
 
-    sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function(){
+    sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
         loadSongsFromServer();
     });
 
@@ -17,31 +17,72 @@ const handleSong = (e) => {
 
 const SongForm = (props) => {
     return (
-        <form id= "songForm"
-        onSubmit = {handleSong}
-        name="songForm"
-        action="/maker"
-        method="POST"
-        className="songForm"
+        <form id="songForm"
+            onSubmit={handleSong}
+            name="songForm"
+            action="/maker"
+            method="POST"
+            className="songForm"
         >
-            <label htmlFor="name">Name: </label>
-            <input id="songName" type="text" name="name" placeholder="Song Track"/>  
+            <span className="close">&times;</span>
+            <label htmlFor="name">Track: </label>
+            <input id="songName" type="text" name="name" placeholder="Song Track" />
             <label htmlFor="artist">Artist: </label>
-            <input id="songArtist" type="text" name="artist" placeholder="Artist"/>
+            <input id="songArtist" type="text" name="artist" placeholder="Artist" />
             <label htmlFor="rating">Rating (1-5): </label>
-            <input id="songRating" type="number" name="rating" step="1" min="1" max="5"/>
-            <input type= "hidden" name="_csrf" value={props.csrf} />
-            <input className="makeSongSubmit" type="submit" value="Add Song!"/>     
+            <input id="songRating" type="number" name="rating" step="1" min="1" max="5" />
+            <label htmlFor="genre">Genre: </label>
+            <select id="songGenre" type="dropdown" name="genre" >
+                <option value="" hidden> -- Select One --</option>
+                <option value="Classical">Classical</option>
+                <option value="Country">Country</option>
+                <option value="Dance">Dance</option>
+                <option value="EDM">EDM</option>
+                <option value="Hip-hop">Hip-hop</option>
+                <option value="Indie">Indie</option>
+                <option value="Instrumental">Instrumental</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Metal">Metal</option>
+                <option value="Pop">Pop</option>
+                <option value="Rap">Rap</option>
+                <option value="Rhythm & Blues">Rhythm & Blues</option>
+                <option value="Rock">Rock</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="hidden" name="_csrf" value={props.csrf} />
+            <input className="makeSongSubmit" type="submit" value="Add Song!" />
         </form>
     );
 };
+
+/* const SideSongForm = () => {
+    return (
+        <form id="sideSongForm"
+            onclick={closeNav}
+            name="sideSongForm"
+            action="/maker"
+            method="POST" 
+            className="sideSongForm"
+        >
+            <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Clients</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <button class="openbtn" onclick="openNav()">☰ Create!</button>  
+        </form>
+    );
+}*/
 
 //array of songs is empty- UI show no songs
 //otherwise map function to create UI for each song stored in state 
 //  of component. Every song will generate a song div and add it
 //render out a songList with song nodes array
-const SongList = function(props){
-    if(props.songs.length === 0){
+const SongList = function (props) {
+    if (props.songs.length === 0) {
         return (
             <div className="songList">
                 <h3 className="emptySong">No Songs Created Yet</h3>
@@ -62,13 +103,14 @@ const SongList = function(props){
     console.log(now);
     console.log(formattedDate);
 
-    const songNodes = props.songs.map(function(song){
+    const songNodes = props.songs.map(function (song) {
         return (
             <div key={song._id} className="song">
-                <img src="/assets/img/domoface.jpeg" alt= "domo face" className="domoFace"/>
+                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
                 <h3 className="songName"> Name: {song.name}</h3>
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
                 <h3 className="songRating"> Rating: {song.rating}/5</h3>
+                <h3 className="songGenre"> Genre: {song.genre}</h3>
                 <h3 className="songDate"> Date : {song.createdDate}</h3>
                 <h3 className="songDate"> Date Added: {formattedDate}</h3>
             </div>
@@ -81,6 +123,14 @@ const SongList = function(props){
         </div>
     );
 };
+
+function openNav() {
+    document.getElementById("mySidepanel").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidepanel").style.width = "0";
+}
 
 //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
@@ -96,7 +146,7 @@ const loadSongsFromServer = () => {
 //songs attribute of SongList is empty array - because we dont have 
 //  data yet, but will at least get the HTML onto the page while waiting 
 //  for server
-const setup = function(csrf) {
+const setup = function (csrf) {
     ReactDOM.render(
         <SongForm csrf={csrf} />, document.querySelector("#makeSong")
     );
@@ -104,6 +154,10 @@ const setup = function(csrf) {
     ReactDOM.render(
         <SongList songs={[]} />, document.querySelector("#songs")
     );
+
+    /* ReactDOM.render(
+        <SideSongForm csrf={csrf} />, document.querySelector("#sideSong")
+    ); */
 
     loadSongsFromServer();
 };
@@ -116,6 +170,7 @@ const getToken = () => {
 };
 
 //page load - getToken() to get new CSRF token and setup React components
-$(document).ready(function() {
+$(document).ready(function () {
     getToken();
 });
+

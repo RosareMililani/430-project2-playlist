@@ -10,15 +10,15 @@ let SongModel = {};
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-let now = new Date();
-let formattedDate = now.toLocaleDateString(
+const now = new Date();
+const formattedDate = now.toLocaleDateString(
   'en-gb',
   {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-    timeZone: 'utc'
-  }
+    timeZone: 'utc',
+  },
 );
 console.log(now);
 console.log(formattedDate);
@@ -44,6 +44,11 @@ const SongSchema = new mongoose.Schema({
     require: true,
   },
 
+  genre: {
+    type: String,
+    required: true,
+  },
+
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
@@ -61,6 +66,7 @@ SongSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   artist: doc.artist,
   rating: doc.rating,
+  genre: doc.genre,
   createdDate: doc.createdDate,
 });
 
@@ -69,7 +75,7 @@ SongSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return SongModel.find(search).select('name artist rating createdDate').lean().exec(callback);
+  return SongModel.find(search).select('name artist rating genre createdDate').lean().exec(callback);
 };
 
 SongModel = mongoose.model('Song', SongSchema);

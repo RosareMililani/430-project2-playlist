@@ -6,7 +6,7 @@ var handleSong = function handleSong(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '') {
+  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '') {
     handleError("Oops! All fields are required");
     return false;
   }
@@ -25,9 +25,11 @@ var SongForm = function SongForm(props) {
     action: "/maker",
     method: "POST",
     className: "songForm"
-  }, /*#__PURE__*/React.createElement("label", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "close"
+  }, "\xD7"), /*#__PURE__*/React.createElement("label", {
     htmlFor: "name"
-  }, "Name: "), /*#__PURE__*/React.createElement("input", {
+  }, "Track: "), /*#__PURE__*/React.createElement("input", {
     id: "songName",
     type: "text",
     name: "name",
@@ -48,7 +50,44 @@ var SongForm = function SongForm(props) {
     step: "1",
     min: "1",
     max: "5"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "genre"
+  }, "Genre: "), /*#__PURE__*/React.createElement("select", {
+    id: "songGenre",
+    type: "dropdown",
+    name: "genre"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    hidden: true
+  }, " -- Select one --"), /*#__PURE__*/React.createElement("option", {
+    value: "Classical"
+  }, "Classical"), /*#__PURE__*/React.createElement("option", {
+    value: "Country"
+  }, "Country"), /*#__PURE__*/React.createElement("option", {
+    value: "Dance"
+  }, "Dance"), /*#__PURE__*/React.createElement("option", {
+    value: "EDM"
+  }, "EDM"), /*#__PURE__*/React.createElement("option", {
+    value: "Hip-hop"
+  }, "Hip-hop"), /*#__PURE__*/React.createElement("option", {
+    value: "Indie"
+  }, "Indie"), /*#__PURE__*/React.createElement("option", {
+    value: "Instrumental"
+  }, "Instrumental"), /*#__PURE__*/React.createElement("option", {
+    value: "Jazz"
+  }, "Jazz"), /*#__PURE__*/React.createElement("option", {
+    value: "Metal"
+  }, "Metal"), /*#__PURE__*/React.createElement("option", {
+    value: "Pop"
+  }, "Pop"), /*#__PURE__*/React.createElement("option", {
+    value: "Rap"
+  }, "Rap"), /*#__PURE__*/React.createElement("option", {
+    value: "Rhythm & Blues"
+  }, "Rhythm & Blues"), /*#__PURE__*/React.createElement("option", {
+    value: "Rock"
+  }, "Rock"), /*#__PURE__*/React.createElement("option", {
+    value: "Other"
+  }, "Other")), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -57,7 +96,29 @@ var SongForm = function SongForm(props) {
     type: "submit",
     value: "Add Song!"
   }));
-}; //array of songs is empty- UI show no songs
+};
+/* const SideSongForm = () => {
+    return (
+        <form id="sideSongForm"
+            onclick={closeNav}
+            name="sideSongForm"
+            action="/maker"
+            method="POST" 
+            className="sideSongForm"
+        >
+            <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Clients</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <button class="openbtn" onclick="openNav()">☰ Create!</button>  
+        </form>
+    );
+}*/
+//array of songs is empty- UI show no songs
 //otherwise map function to create UI for each song stored in state 
 //  of component. Every song will generate a song div and add it
 //render out a songList with song nodes array
@@ -96,6 +157,8 @@ var SongList = function SongList(props) {
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
       className: "songRating"
     }, " Rating: ", song.rating, "/5"), /*#__PURE__*/React.createElement("h3", {
+      className: "songGenre"
+    }, " Genre: ", song.genre), /*#__PURE__*/React.createElement("h3", {
       className: "songDate"
     }, " Date : ", song.createdDate), /*#__PURE__*/React.createElement("h3", {
       className: "songDate"
@@ -104,7 +167,15 @@ var SongList = function SongList(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
   }, songNodes);
-}; //grabs songs from the server and render a SongsList
+};
+
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+} //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 
 
@@ -127,6 +198,10 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
     songs: []
   }), document.querySelector("#songs"));
+  /* ReactDOM.render(
+      <SideSongForm csrf={csrf} />, document.querySelector("#sideSong")
+  ); */
+
   loadSongsFromServer();
 }; //allow us to get CSRF token for new submissions
 
