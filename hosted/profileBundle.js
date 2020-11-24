@@ -22,7 +22,7 @@ var ProfileForm = function ProfileForm(props) {
     React.createElement("div", {
       className: "accounts"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/face.png",
+      src: "/assets/img/single-note-music.png",
       alt: "domo face",
       className: "domoFaceProfile"
     }), /*#__PURE__*/React.createElement("h3", {

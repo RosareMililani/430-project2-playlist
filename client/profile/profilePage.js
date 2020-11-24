@@ -16,7 +16,7 @@ const ProfileForm = function (props) {
                 <h3 className="profileNotes"> Notes: </h3>
             </div> */
             <div className="accounts">
-                <img src="/assets/img/face.png" alt= "domo face" className="domoFaceProfile"/>
+                <img src="/assets/img/single-note-music.png" alt= "domo face" className="domoFaceProfile"/>
                 <h3 className="profileNotes"> Notes: </h3>
                 <br/>
                 <br/>
