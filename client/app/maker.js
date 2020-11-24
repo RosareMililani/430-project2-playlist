@@ -51,6 +51,7 @@ const SongForm = (props) => {
             </select>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!" />
+            <input className="resetSong" type="reset" value="Reset!"/>
         </form>
     );
 };

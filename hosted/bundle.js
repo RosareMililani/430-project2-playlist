@@ -95,6 +95,10 @@ var SongForm = function SongForm(props) {
     className: "makeSongSubmit",
     type: "submit",
     value: "Add Song!"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "resetSong",
+    type: "reset",
+    value: "Reset!"
   }));
 };
 /* Filters out the data if wanted */

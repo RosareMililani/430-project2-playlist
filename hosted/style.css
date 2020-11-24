@@ -8,10 +8,11 @@ html, body {
 
 #logo {
     height: 40px;
-    width: 40;
+    width: 40px;
     padding-top: 5px;
     float: left;
     border-radius: 8px;
+    margin-left: 5px;
 }
 
 nav {
@@ -43,8 +44,7 @@ nav:nth-child(1) {
     float: right;
 }
 
-.navlink a, .navlink-logout a, .navlink a:link, .navlink-logout a:link, .navlink a:visited, .navlink-logout a:visited,
- .navlink a:hover, .navlink-logout a:hover, .navlink a:active, .navlink-logout a:active {
+.navlink a, .navlink-logout a, .navlink a:link, .navlink-logout a:link, .navlink a:visited, .navlink-logout a:visited, .navlink a:hover, .navlink-logout a:hover, .navlink a:active, .navlink-logout a:active {
     color: white;
     text-decoration: none;
     padding: 5px;
@@ -81,7 +81,7 @@ nav:nth-child(1) {
     color: white;
 }
 
-.songForm input[type=text]{
+.songForm input[type=text] {
     float: left;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -105,18 +105,32 @@ nav:nth-child(1) {
     width: 90px;
     background-color: #55acee;
     border-radius: 2px;
-    margin-left: 100px;
+    color: white;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 81px;
+    margin-left: 15px;
+}
+
+.resetSong {
+    transition: background-color 0.4s ease;
+    display: inline;
+    width: 90px;
+    background-color: #55acee;
+    border-radius: 2px;
     color: white;
     text-decoration: none;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-.makeSongSubmit:link, .makeSongSubmit:visited, .makeSongSubmit:hover, .makeSongSubmit:active {
+.makeSongSubmit:link, .resetSong:link, .makeSongSubmit:visited, .resetSong:visited, .makeSongSubmit:hover, .resetSong:hover, 
+.makeSongSubmit:active, .resetSong:active {
     color: white;
 }
 
-.makeSongSubmit:hover {
+.makeSongSubmit:hover, .resetSong:hover {
     transition: background-color 0.4s ease;
     background-color: #338acc;
 }
@@ -312,7 +326,7 @@ h3.songGenre {
     width: 275px;
     font-weight: bold;
     padding-right: 40px;
-    padding-left:100px;
+    padding-left: 100px;
     font-size: 1.2em;
 }
 
@@ -322,7 +336,7 @@ h3.songDate {
     width: 300px;
     font-weight: bold;
     padding-right: 15px;
-    padding-left:50px;
+    padding-left: 50px;
     font-size: 1.2em;
 }
 
@@ -369,4 +383,3 @@ h3.profileNotes {
     color: white;
     font-size: 30px;
 }
-
