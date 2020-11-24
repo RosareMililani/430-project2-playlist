@@ -55,37 +55,59 @@ const SongForm = (props) => {
     );
 };
 
-/* const SideSongForm = () => {
+/* Filters out the data if wanted */
+const FilterForm = (props) => {
     return (
-        <form id="sideSongForm"
-            onclick={closeNav}
-            name="sideSongForm"
+        <form id="songFilter"
+            /* onSubmit={handleSong} */
+            name="songFilter"
             action="/maker"
-            method="POST" 
-            className="sideSongForm"
+            method="POST"
+            className="songFilter"
         >
-            <div id="mySidepanel" class="sidepanel">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Clients</a>
-                <a href="#">Contact</a>
-            </div>
-
-            <button class="openbtn" onclick="openNav()">☰ Create!</button>  
+            <label htmlFor="type"> Type: </label>
+            <select id="typeFilter" type="dropdown" name="filter" >
+                <option value="" hidden> -- Select One --</option>
+                <option value="byNone">None</option>
+                <option value="byTrack">Track</option>
+                <option value="byRating">Rating</option>
+                <option value="byFavorite">Favorite</option>
+                {/* <option value="byGenre">Genre</option> */}
+            </select>
+            <input type="hidden" name="_csrf" value={props.csrf} />
+            <input className="makeFilterSubmit" type="submit" value="Filter!" />
         </form>
     );
-}*/
+}
 
-//array of songs is empty- UI show no songs
-//otherwise map function to create UI for each song stored in state 
-//  of component. Every song will generate a song div and add it
-//render out a songList with song nodes array
+/* Filter options: dropdowns */
+const filterObject = {
+    "None": {
+    },
+    "Track": {
+        "A->Z":[],
+        "Z->A": []
+    },
+    "Rating": {
+        "1 Only": [],
+        "2 Only": [],
+        "3 Only": [],
+        "4 Only": [],
+        "5 Only": [],
+    },
+    "Favorite": {
+        "Favorite": [],
+        "Non-favorite": []
+    },
+}
+
+/* Displays songs to the screen */
 const SongList = function (props) {
+    //no songs added to the data
     if (props.songs.length === 0) {
         return (
             <div className="songList">
-                <h3 className="emptySong">No Songs Created Yet</h3>
+                <h3 className="emptySong">No Songs Avaliable</h3>
             </div>
         );
     }
@@ -103,15 +125,16 @@ const SongList = function (props) {
     console.log(now);
     console.log(formattedDate);
 
+    //if there is data, display onto screen
     const songNodes = props.songs.map(function (song) {
         return (
             <div key={song._id} className="song">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
+                {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" /> */}
                 <h3 className="songName"> Name: {song.name}</h3>
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
                 <h3 className="songRating"> Rating: {song.rating}/5</h3>
                 <h3 className="songGenre"> Genre: {song.genre}</h3>
-                <h3 className="songDate"> Date : {song.createdDate}</h3>
+                {/* <h3 className="songDate"> Date : {song.createdDate}</h3> */}
                 <h3 className="songDate"> Date Added: {formattedDate}</h3>
             </div>
         );
@@ -151,13 +174,13 @@ const setup = function (csrf) {
         <SongForm csrf={csrf} />, document.querySelector("#makeSong")
     );
 
+   /*  ReactDOM.render(
+        <FilterForm csrf={csrf} />, document.querySelector("#makeFilter")
+    ); */
+
     ReactDOM.render(
         <SongList songs={[]} />, document.querySelector("#songs")
     );
-
-    /* ReactDOM.render(
-        <SideSongForm csrf={csrf} />, document.querySelector("#sideSong")
-    ); */
 
     loadSongsFromServer();
 };

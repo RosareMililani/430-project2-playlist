@@ -59,7 +59,7 @@ var SongForm = function SongForm(props) {
   }, /*#__PURE__*/React.createElement("option", {
     value: "",
     hidden: true
-  }, " -- Select one --"), /*#__PURE__*/React.createElement("option", {
+  }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
     value: "Classical"
   }, "Classical"), /*#__PURE__*/React.createElement("option", {
     value: "Country"
@@ -97,40 +97,76 @@ var SongForm = function SongForm(props) {
     value: "Add Song!"
   }));
 };
-/* const SideSongForm = () => {
-    return (
-        <form id="sideSongForm"
-            onclick={closeNav}
-            name="sideSongForm"
-            action="/maker"
-            method="POST" 
-            className="sideSongForm"
-        >
-            <div id="mySidepanel" class="sidepanel">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Clients</a>
-                <a href="#">Contact</a>
-            </div>
+/* Filters out the data if wanted */
 
-            <button class="openbtn" onclick="openNav()">☰ Create!</button>  
-        </form>
-    );
-}*/
-//array of songs is empty- UI show no songs
-//otherwise map function to create UI for each song stored in state 
-//  of component. Every song will generate a song div and add it
-//render out a songList with song nodes array
 
+var FilterForm = function FilterForm(props) {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "songFilter"
+    /* onSubmit={handleSong} */
+    ,
+    name: "songFilter",
+    action: "/maker",
+    method: "POST",
+    className: "songFilter"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "type"
+  }, " Type: "), /*#__PURE__*/React.createElement("select", {
+    id: "typeFilter",
+    type: "dropdown",
+    name: "filter"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    hidden: true
+  }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
+    value: "byNone"
+  }, "None"), /*#__PURE__*/React.createElement("option", {
+    value: "byTrack"
+  }, "Track"), /*#__PURE__*/React.createElement("option", {
+    value: "byRating"
+  }, "Rating"), /*#__PURE__*/React.createElement("option", {
+    value: "byFavorite"
+  }, "Favorite")), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "makeFilterSubmit",
+    type: "submit",
+    value: "Filter!"
+  }));
+};
+/* Filter options: dropdowns */
+
+
+var filterObject = {
+  "None": {},
+  "Track": {
+    "A->Z": [],
+    "Z->A": []
+  },
+  "Rating": {
+    "1 Only": [],
+    "2 Only": [],
+    "3 Only": [],
+    "4 Only": [],
+    "5 Only": []
+  },
+  "Favorite": {
+    "Favorite": [],
+    "Non-favorite": []
+  }
+};
+/* Displays songs to the screen */
 
 var SongList = function SongList(props) {
+  //no songs added to the data
   if (props.songs.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "songList"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptySong"
-    }, "No Songs Created Yet"));
+    }, "No Songs Avaliable"));
   }
 
   var now = new Date();
@@ -141,16 +177,13 @@ var SongList = function SongList(props) {
     timeZone: 'utc'
   });
   console.log(now);
-  console.log(formattedDate);
+  console.log(formattedDate); //if there is data, display onto screen
+
   var songNodes = props.songs.map(function (song) {
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "song"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/domoface.jpeg",
-      alt: "domo face",
-      className: "domoFace"
-    }), /*#__PURE__*/React.createElement("h3", {
+    }, /*#__PURE__*/React.createElement("h3", {
       className: "songName"
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
       className: "songArtist"
@@ -159,8 +192,6 @@ var SongList = function SongList(props) {
     }, " Rating: ", song.rating, "/5"), /*#__PURE__*/React.createElement("h3", {
       className: "songGenre"
     }, " Genre: ", song.genre), /*#__PURE__*/React.createElement("h3", {
-      className: "songDate"
-    }, " Date : ", song.createdDate), /*#__PURE__*/React.createElement("h3", {
       className: "songDate"
     }, " Date Added: ", formattedDate));
   });
@@ -195,13 +226,13 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
   }), document.querySelector("#makeSong"));
+  /*  ReactDOM.render(
+       <FilterForm csrf={csrf} />, document.querySelector("#makeFilter")
+   ); */
+
   ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
     songs: []
   }), document.querySelector("#songs"));
-  /* ReactDOM.render(
-      <SideSongForm csrf={csrf} />, document.querySelector("#sideSong")
-  ); */
-
   loadSongsFromServer();
 }; //allow us to get CSRF token for new submissions
 
