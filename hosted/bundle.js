@@ -98,7 +98,18 @@ var SongForm = function SongForm(props) {
     value: "favorite"
   }, "Favorite"), /*#__PURE__*/React.createElement("option", {
     value: "dontFavorite"
-  }, "Don't Favorite")), /*#__PURE__*/React.createElement("input", {
+  }, "Don't Favorite")), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "playlist"
+  }, "Playlist: "), /*#__PURE__*/React.createElement("select", {
+    id: "songPlaylist",
+    type: "dropdown",
+    name: "playlist"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    hidden: true
+  }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
+    value: "Default"
+  }, "Default")), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -111,6 +122,33 @@ var SongForm = function SongForm(props) {
     type: "reset",
     value: "Clear!"
   }), /*#__PURE__*/React.createElement("label", null, "Message: "));
+};
+
+var PlaylistForm = function PlaylistForm(props) {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "playlistForm"
+    /* onSubmit={handleSong} */
+    ,
+    name: "playlistForm",
+    action: "/maker",
+    method: "POST",
+    className: "playlistForm"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "pname"
+  }, "Playlist Name: "), /*#__PURE__*/React.createElement("input", {
+    id: "playlistName",
+    type: "text",
+    name: "pname",
+    placeholder: "Playlist Name"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "makePlaylistSubmit",
+    type: "submit",
+    value: "Add Playlist!"
+  }));
 };
 /* Displays songs to the screen */
 
@@ -154,15 +192,7 @@ var SongList = function SongList(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
   }, songNodes);
-};
-
-function openNav() {
-  document.getElementById("mySidepanel").style.width = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidepanel").style.width = "0";
-} //grabs songs from the server and render a SongsList
+}; //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 
 
@@ -182,10 +212,9 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
   }), document.querySelector("#makeSong"));
-  /*  ReactDOM.render(
-       <FilterForm csrf={csrf} />, document.querySelector("#makeFilter")
-   ); */
-
+  ReactDOM.render( /*#__PURE__*/React.createElement(PlaylistForm, {
+    csrf: csrf
+  }), document.querySelector("#makePlaylist"));
   ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
     songs: []
   }), document.querySelector("#songs"));

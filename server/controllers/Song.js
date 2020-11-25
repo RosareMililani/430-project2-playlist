@@ -16,7 +16,7 @@ const makerPage = (req, res) => {
 
 const makeSong = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating) {
-    return res.status(400).json({ error: 'Oops! Name, artist, rating, genre, and favorite are required' });
+    return res.status(400).json({ error: 'Oops! Name, artist, rating, genre, favorite, playlist are required' });
   }
 
   const songData = {
@@ -25,6 +25,7 @@ const makeSong = (req, res) => {
     rating: req.body.rating,
     genre: req.body.genre,
     favorite: req.body.favorite,
+    playlist: req.body.playlist,
     owner: req.session.account._id,
   };
 

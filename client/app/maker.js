@@ -55,10 +55,32 @@ const SongForm = (props) => {
                 <option value="favorite">Favorite</option>
                 <option value="dontFavorite">Don't Favorite</option>
             </select>
+            <label htmlFor="playlist">Playlist: </label>
+            <select id="songPlaylist" type="dropdown" name="playlist" >
+                <option value="" hidden> -- Select One --</option>
+                <option value="Default">Default</option>
+            </select>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!" />
             <input className="resetSong" type="reset" value="Clear!"/>
             <label>Message: </label>
+        </form>
+    );
+};
+
+const PlaylistForm = (props) => {
+    return (
+        <form id="playlistForm"
+            /* onSubmit={handleSong} */
+            name="playlistForm"
+            action="/maker"
+            method="POST"
+            className="playlistForm"
+        >
+            <label htmlFor="pname">Playlist Name: </label>
+            <input id="playlistName" type="text" name="pname" placeholder="Playlist Name" />
+            <input type="hidden" name="_csrf" value={props.csrf} />
+            <input className="makePlaylistSubmit" type="submit" value="Add Playlist!" />
         </form>
     );
 };
@@ -109,14 +131,6 @@ const SongList = function (props) {
     );
 };
 
-function openNav() {
-    document.getElementById("mySidepanel").style.width = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidepanel").style.width = "0";
-}
-
 //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 const loadSongsFromServer = () => {
@@ -136,9 +150,9 @@ const setup = function (csrf) {
         <SongForm csrf={csrf} />, document.querySelector("#makeSong")
     );
 
-   /*  ReactDOM.render(
-        <FilterForm csrf={csrf} />, document.querySelector("#makeFilter")
-    ); */
+    ReactDOM.render(
+        <PlaylistForm csrf={csrf} />, document.querySelector("#makePlaylist")
+    );
 
     ReactDOM.render(
         <SongList songs={[]} />, document.querySelector("#songs")
