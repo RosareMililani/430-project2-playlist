@@ -6,7 +6,7 @@ var handleSong = function handleSong(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '') {
+  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '' || $("#songFavorite").val() == '') {
     handleError("Oops! All fields are required");
     return false;
   }
@@ -25,9 +25,7 @@ var SongForm = function SongForm(props) {
     action: "/maker",
     method: "POST",
     className: "songForm"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "close"
-  }, "\xD7"), /*#__PURE__*/React.createElement("label", {
+  }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "name"
   }, "Track: "), /*#__PURE__*/React.createElement("input", {
     id: "songName",
@@ -87,7 +85,20 @@ var SongForm = function SongForm(props) {
     value: "Rock"
   }, "Rock"), /*#__PURE__*/React.createElement("option", {
     value: "Other"
-  }, "Other")), /*#__PURE__*/React.createElement("input", {
+  }, "Other")), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "favorite"
+  }, "Favorite: "), /*#__PURE__*/React.createElement("select", {
+    id: "songFavorite",
+    type: "dropdown",
+    name: "favorite"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    hidden: true
+  }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
+    value: "favorite"
+  }, "Favorite"), /*#__PURE__*/React.createElement("option", {
+    value: "dontFavorite"
+  }, "Don't Favorite")), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -98,70 +109,11 @@ var SongForm = function SongForm(props) {
   }), /*#__PURE__*/React.createElement("input", {
     className: "resetSong",
     type: "reset",
-    value: "Reset!"
-  }));
-};
-/* Filters out the data if wanted */
-
-
-var FilterForm = function FilterForm(props) {
-  return /*#__PURE__*/React.createElement("form", {
-    id: "songFilter"
-    /* onSubmit={handleSong} */
-    ,
-    name: "songFilter",
-    action: "/maker",
-    method: "POST",
-    className: "songFilter"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "type"
-  }, " Type: "), /*#__PURE__*/React.createElement("select", {
-    id: "typeFilter",
-    type: "dropdown",
-    name: "filter"
-  }, /*#__PURE__*/React.createElement("option", {
-    value: "",
-    hidden: true
-  }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
-    value: "byNone"
-  }, "None"), /*#__PURE__*/React.createElement("option", {
-    value: "byTrack"
-  }, "Track"), /*#__PURE__*/React.createElement("option", {
-    value: "byRating"
-  }, "Rating"), /*#__PURE__*/React.createElement("option", {
-    value: "byFavorite"
-  }, "Favorite")), /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "_csrf",
-    value: props.csrf
-  }), /*#__PURE__*/React.createElement("input", {
-    className: "makeFilterSubmit",
-    type: "submit",
-    value: "Filter!"
-  }));
-};
-/* Filter options: dropdowns */
-
-
-var filterObject = {
-  "None": {},
-  "Track": {
-    "A->Z": [],
-    "Z->A": []
-  },
-  "Rating": {
-    "1 Only": [],
-    "2 Only": [],
-    "3 Only": [],
-    "4 Only": [],
-    "5 Only": []
-  },
-  "Favorite": {
-    "Favorite": [],
-    "Non-favorite": []
-  }
+    value: "Clear!"
+  }), /*#__PURE__*/React.createElement("label", null, "Message: "));
 };
 /* Displays songs to the screen */
+
 
 var SongList = function SongList(props) {
   //no songs added to the data

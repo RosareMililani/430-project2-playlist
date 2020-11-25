@@ -49,6 +49,11 @@ const SongSchema = new mongoose.Schema({
     required: true,
   },
 
+  favorite: {
+    type: String,
+    required:true,
+  },
+
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
@@ -75,7 +80,13 @@ SongSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return SongModel.find(search).select('name artist rating genre createdDate').lean().exec(callback);
+  return SongModel.find(search).select('name artist rating genre favorite createdDate').lean().exec(callback);
+};
+
+SongSchema.statics.findAll = (callback) => {
+  const search = {};
+
+  return SongModel.find(search).select('name artist').lean().exec(callback);
 };
 
 SongModel = mongoose.model('Song', SongSchema);

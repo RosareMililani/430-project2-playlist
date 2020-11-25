@@ -1,30 +1,13 @@
-const handleSong = (e) => {
-    e.preventDefault();
-
-    $("#songMessage").animate({ width: 'hide' }, 350);
-
-    if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || 
-        $("#songGenre").val() == '' || $("#songFavorite").val() == '') {
-        handleError("Oops! All fields are required");
-        return false;
-    }
-
-    sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
-        loadSongsFromServer();
-    });
-
-    return false;
-};
-
-const SongForm = (props) => {
+const AllSongForm = (props) => {
     return (
-        <form id="songForm"
+        <form id="allSongForm"
             onSubmit={handleSong}
-            name="songForm"
+            name="allSongForm"
             action="/maker"
             method="POST"
-            className="songForm"
+            className="allSongForm"
         >
+            <span className="close">&times;</span>
             <label htmlFor="name">Track: </label>
             <input id="songName" type="text" name="name" placeholder="Song Track" />
             <label htmlFor="artist">Artist: </label>
@@ -49,16 +32,9 @@ const SongForm = (props) => {
                 <option value="Rock">Rock</option>
                 <option value="Other">Other</option>
             </select>
-            <label htmlFor="favorite">Favorite: </label>
-            <select id="songFavorite" type="dropdown" name="favorite" >
-                <option value="" hidden> -- Select One --</option>
-                <option value="favorite">Favorite</option>
-                <option value="dontFavorite">Don't Favorite</option>
-            </select>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!" />
-            <input className="resetSong" type="reset" value="Clear!"/>
-            <label>Message: </label>
+            <input className="resetSong" type="reset" value="Reset!"/>
         </form>
     );
 };
@@ -109,13 +85,6 @@ const SongList = function (props) {
     );
 };
 
-function openNav() {
-    document.getElementById("mySidepanel").style.width = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidepanel").style.width = "0";
-}
 
 //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
@@ -152,6 +121,32 @@ const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
+};
+
+const SongList = function (props) {
+    //reality check - but should never happen
+    if (props.users.length === 0) {
+        return (
+            <div className="songList">
+                <h3 className="emptySong">No Songs Avaliable - Login to Add to the List</h3>
+            </div>
+        );
+    }
+
+    const songNodes = props.songs.map(function (song) {
+        return (
+            <div key={song._id} className="song">
+                <h3 className="songName"> Name: {song.name}</h3>
+                <h3 className="songArtist"> Artist: {song.artist}</h3>
+            </div>
+        );
+    });
+
+    return (
+        <div className="songList">
+            {songNodes}
+        </div>
+    );
 };
 
 //page load - getToken() to get new CSRF token and setup React components

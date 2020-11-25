@@ -60,7 +60,7 @@ nav:nth-child(1) {
 
 .songForm {
     border: 2px solid #338acc;
-    height: 300px;
+    height: 450px;
     width: 300px;
     margin-top: 15px;
     padding-top: 10px;
@@ -92,6 +92,11 @@ nav:nth-child(1) {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 40px;
+}
+
+.songForm select[type=dropdown] {
+    float: left;
+    margin-right:100px;
 }
 
 #songGenre {
@@ -371,15 +376,4 @@ h3.profileNotes {
 
 .song:last-child {
     margin-bottom: 10px;
-}
-
-.close {
-    cursor: pointer;
-    /* position: absolute;
-    top: 50%;
-    right: 0%;
-    padding: 12px 16px; */
-    transform: translate(0%, -50%);
-    color: white;
-    font-size: 30px;
 }

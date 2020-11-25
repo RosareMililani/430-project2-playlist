@@ -16,7 +16,7 @@ const makerPage = (req, res) => {
 
 const makeSong = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating) {
-    return res.status(400).json({ error: 'Oops! Name, artist, rating, and genre are required' });
+    return res.status(400).json({ error: 'Oops! Name, artist, rating, genre, and favorite are required' });
   }
 
   const songData = {
@@ -24,6 +24,7 @@ const makeSong = (req, res) => {
     artist: req.body.artist,
     rating: req.body.rating,
     genre: req.body.genre,
+    favorite: req.body.favorite,
     owner: req.session.account._id,
   };
 
@@ -63,6 +64,21 @@ const getSongs = (request, response) => {
   });
 };
 
+const getAllSongs = (request, response) => {
+  const req = request;
+  const res = response;
+
+  return Song.SongModel.findAll((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    return res.json({ songs: docs });
+  });
+};
+
 module.exports.makerPage = makerPage;
 module.exports.getSongs = getSongs;
 module.exports.make = makeSong;
+module.exports.getAllSongs = getAllSongs;

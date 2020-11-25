@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>Playlist Maker - My Page</title>
+  <title>Playlist Maker - All Added Songs</title>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
@@ -10,14 +10,16 @@
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
-<body>
+<body> 
   <nav><a href="/login"><img id="logo" src="/assets/img/single-note-music.png" alt="face logo"/></a>
-    <div class="navlink"><a href="/maker">Create</a></div>
-    <div class="navlink"><a href="/myPage">My Page</a></div>
-    <div class="navlink"><a href="/allSongs">All Users Songs</a></div>
-    <div class="navlink-logout"><a href="/logout">Log out</a></div>
+    <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
+    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
+    <div class="navlink"><a href="/viewSongs">View Added Songs</a></div>
   </nav>
   <section id="content"></section>
-  <script src="/assets/profileBundle.js"></script>
+  <div id="songMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
+    <h3><span id="errorMessage">Wrong username or password</span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
+  </div>
+  <script src="/assets/userSongs.js"></script>
 </body>
 </html>
