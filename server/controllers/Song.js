@@ -65,7 +65,7 @@ const getSongs = (request, response) => {
 };
 
 const getAllSongs = (request, response) => {
-  const req = request;
+  // const req = request;
   const res = response;
 
   return Song.SongModel.findAll((err, docs) => {

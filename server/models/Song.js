@@ -51,7 +51,7 @@ const SongSchema = new mongoose.Schema({
 
   favorite: {
     type: String,
-    required:true,
+    required: true,
   },
 
   owner: {
