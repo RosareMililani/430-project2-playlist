@@ -16,6 +16,27 @@ const handleSong = (e) => {
     return false;
 };
 
+const handlePlaylist = (e) => {
+    e.preventDefault();
+
+    $("#songMessage").animate({ width: 'hide' }, 350);
+
+    if ($("#playlistName").val() == '') {
+        handleError("Oops! Missing name information");
+        return false;
+    }
+
+    sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
+        let added = document.getElementById("#playlistForm").value;
+        let dropdownPlaylist = documnet.getElementById("#songPlaylist");
+        let option = document.createElement("option");
+        option.text = added;
+        dropdownPlaylist.add(added);
+    });
+
+    return false;
+};
+
 const SongForm = (props) => {
     return (
         <form id="songForm"
@@ -63,7 +84,7 @@ const SongForm = (props) => {
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!" />
             <input className="resetSong" type="reset" value="Clear!"/>
-            <label>Message: </label>
+            <label className="displayError">Message: </label>
         </form>
     );
 };
@@ -71,10 +92,10 @@ const SongForm = (props) => {
 const PlaylistForm = (props) => {
     return (
         <form id="playlistForm"
-            /* onSubmit={handleSong} */
+            onSubmit={handlePlaylist}
             name="playlistForm"
-            action="/maker"
-            method="POST"
+            /* action="/maker"
+            method="POST" */
             className="playlistForm"
         >
             <label htmlFor="pname">Playlist Name: </label>

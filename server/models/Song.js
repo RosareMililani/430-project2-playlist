@@ -57,7 +57,7 @@ const SongSchema = new mongoose.Schema({
   playlist: {
     type: String,
     trim: true,
-    required:false,
+    required: false,
   },
 
   owner: {

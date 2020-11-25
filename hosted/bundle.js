@@ -17,6 +17,25 @@ var handleSong = function handleSong(e) {
   return false;
 };
 
+var handlePlaylist = function handlePlaylist(e) {
+  e.preventDefault(); //$("#songMessage").animate({ width: 'hide' }, 350);
+
+  if ($("#playlistName").val() == '') {
+    handleError("Oops! Missing name information");
+    return false;
+  } //sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
+  //loadSongsFromServer();
+
+
+  var added = document.getElementById("#playlistForm").value;
+  var dropdownPlaylist = documnet.getElementById("#songPlaylist");
+  var option = document.createElement("option");
+  option.text = added;
+  dropdownPlaylist.add(added); //});
+
+  return false;
+};
+
 var SongForm = function SongForm(props) {
   return /*#__PURE__*/React.createElement("form", {
     id: "songForm",
@@ -121,17 +140,19 @@ var SongForm = function SongForm(props) {
     className: "resetSong",
     type: "reset",
     value: "Clear!"
-  }), /*#__PURE__*/React.createElement("label", null, "Message: "));
+  }), /*#__PURE__*/React.createElement("label", {
+    className: "displayError"
+  }, "Message: "));
 };
 
 var PlaylistForm = function PlaylistForm(props) {
   return /*#__PURE__*/React.createElement("form", {
-    id: "playlistForm"
-    /* onSubmit={handleSong} */
+    id: "playlistForm",
+    onSubmit: handlePlaylist,
+    name: "playlistForm"
+    /* action="/maker"
+    method="POST" */
     ,
-    name: "playlistForm",
-    action: "/maker",
-    method: "POST",
     className: "playlistForm"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "pname"
