@@ -181,8 +181,9 @@ nav:nth-child(1) {
     height: 300px;
     width: 350px;
     margin: 0 auto;
-    padding-top: 350px;
+    padding-top: 200px;
     font-size: 1.2em;
+    /* border-style: dashed; */
 }
 
 .mainForm h3 {
@@ -193,8 +194,25 @@ nav:nth-child(1) {
     display: inline-block;
     width: 100px;
     margin-right: 10px;
-    text-align: right;
+    /* text-align: right; */
     font-size: 1.2em;
+}
+
+label.loginLabel{
+    font-style: italic;
+    font-size: 1.5em;
+    margin-left:131px;
+    margin-bottom:20px;
+    text-decoration: underline;
+}
+
+label.noAccountLabel{
+    margin-top:20px;
+    margin-bottom:30px;
+    width:240px;
+    font-size:1em;
+    font-style: italic;
+    text-align:center;
 }
 
 .formSubmit {

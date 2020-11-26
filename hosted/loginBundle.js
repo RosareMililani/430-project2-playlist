@@ -53,6 +53,8 @@ var LoginWindow = function LoginWindow(props) {
     method: "POST",
     className: "mainForm"
   }, /*#__PURE__*/React.createElement("label", {
+    className: "loginLabel"
+  }, "Login"), /*#__PURE__*/React.createElement("label", {
     htmlFor: "username"
   }, "Username: "), /*#__PURE__*/React.createElement("input", {
     id: "user",
@@ -74,6 +76,33 @@ var LoginWindow = function LoginWindow(props) {
     className: "formSubmit",
     type: "submit",
     value: "Sign in"
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("label", {
+    className: "noAccountLabel"
+  }, "Don't Have An Account?"), /*#__PURE__*/React.createElement("input", {
+    type: "submit",
+    formaction: "/signup",
+    value: "Sign up"
+  }));
+};
+
+var NoLogin = function NoLogin(props) {
+  return /*#__PURE__*/React.createElement("form", {
+    id: "nologin",
+    name: "nologin"
+    /* onSubmit = {handleNoLogin} */
+    ,
+    action: "/signup",
+    method: "POST",
+    className: "mainForm"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "noAccountLabel"
+  }, "Don't Have An Account?"), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "submit",
+    value: "Sign up"
   }));
 }; //alows to quickly switch between the signup and login paes without actually
 //  changing the web page
@@ -132,6 +161,10 @@ var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
+  /* ReactDOM.render(
+      <NoLogin csrf={csrf}/>,
+      document.querySelector("#no-login")
+  ); */
 }; //render a new sinup window that can handle react events
 
 

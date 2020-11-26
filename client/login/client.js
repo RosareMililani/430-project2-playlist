@@ -54,15 +54,35 @@ const LoginWindow = (props) => {
         method="POST"
         className="mainForm"
         >
+            <label className="loginLabel">Login</label>
             <label htmlFor="username">Username: </label>
             <input id = "user" type="text" name="username" placeholder="username"/>
             <label htmlFor="pass">Password: </label>
             <input id = "pass" type="password" name="pass" placeholder="password"/>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="formSubmit" type="submit" value= "Sign in"/>
+
+            <hr/>
+            <label className = "noAccountLabel">Don't Have An Account?</label>
+            <input type="submit" formaction= "/signup" value="Sign up"/>
         </form>
     );
 };
+
+const NoLogin = (props) => {
+    return (
+        <form id = "nologin" name="nologin"
+        /* onSubmit = {handleNoLogin} */
+        action= "/signup"
+        method="POST"
+        className="mainForm"
+        >
+            <label className = "noAccountLabel">Don't Have An Account?</label>
+            <input type="hidden" name="_csrf" value={props.csrf} />
+            <input type="submit" value="Sign up"/>
+        </form>
+    )
+}
 
 //alows to quickly switch between the signup and login paes without actually
 //  changing the web page
@@ -95,6 +115,11 @@ const createLoginWindow = (csrf) => {
         <LoginWindow csrf={csrf} />,
         document.querySelector("#content")
     );
+
+    /* ReactDOM.render(
+        <NoLogin csrf={csrf}/>,
+        document.querySelector("#no-login")
+    ); */
 };
 
 //render a new sinup window that can handle react events
