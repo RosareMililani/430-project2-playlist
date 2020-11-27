@@ -184,33 +184,48 @@ nav:nth-child(1) {
     font-size: 1.2em;
 }
 
-.container{
-    border-style: dashed;
-    width: 400px;
-    height:250px;
-    margin-top: 15%;
-    margin-left: 35%;
+.mainSignForm {
+    height: 400px;
+    width: 350px;
+    margin: 0 auto;
+    font-size: 1.2em;
 }
 
-.mainForm h3 {
+.mainForm div{
+    border-style: dashed;
+    width: 350px;
+    height:250px;
+    margin-top: 50%;
+}
+
+.mainSignForm div{
+    border-style: dashed;
+    width: 350px;
+    height:330px;
+    margin-top: 50%;
+}
+
+.mainForm h3, .mainSignForm h3 {
     text-align: center;
 }
 
-.mainForm label {
+.mainForm label, .mainSignForm label {
     display: inline-block;
     width: 100px;
-    margin-right: 10px;
+    margin-right: 20px;
+    margin-left: 5px;
     padding:10px;
     font-size: 1.2em;
 }
 
-label.loginLabel{
+label.loginLabel, label.signupLabel{
     font-style: italic;
     font-size: 1.5em;
-    margin-left:131px;
+    margin-left:115px;
     margin-bottom:10px;
     padding-top: 20px;
     text-decoration: underline;
+    text-align:center;
 }
 
 label.noAccountLabel{

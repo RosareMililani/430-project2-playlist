@@ -52,6 +52,8 @@ var LoginWindow = function LoginWindow(props) {
     action: "/login",
     method: "POST",
     className: "mainForm"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
   }, /*#__PURE__*/React.createElement("label", {
     className: "loginLabel"
   }, "Login"), /*#__PURE__*/React.createElement("label", {
@@ -76,7 +78,7 @@ var LoginWindow = function LoginWindow(props) {
     className: "formSubmit",
     type: "submit",
     value: "Sign in"
-  }));
+  })));
 };
 
 var NoLogin = function NoLogin(props) {
@@ -87,7 +89,7 @@ var NoLogin = function NoLogin(props) {
     ,
     action: "/signup",
     method: "POST",
-    className: "mainForm"
+    className: "mainSignUpForm"
   }, /*#__PURE__*/React.createElement("label", {
     className: "noAccountLabel"
   }, "Don't Have An Account?"), /*#__PURE__*/React.createElement("input", {
@@ -109,8 +111,12 @@ var SignupWindow = function SignupWindow(props) {
     onSubmit: handleSignup,
     action: "/signup",
     method: "POST",
-    className: "mainForm"
+    className: "mainSignForm"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
   }, /*#__PURE__*/React.createElement("label", {
+    className: "signupLabel"
+  }, "Sign Up"), /*#__PURE__*/React.createElement("label", {
     htmlFor: "profileName"
   }, "Name: "), /*#__PURE__*/React.createElement("input", {
     id: "profileName",
@@ -145,8 +151,8 @@ var SignupWindow = function SignupWindow(props) {
   }), /*#__PURE__*/React.createElement("input", {
     className: "formSubmit",
     type: "submit",
-    value: "Sign up"
-  }));
+    value: "Sign Up"
+  })));
 }; //accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
 //without token, security on the server will prevent the form from working
 
