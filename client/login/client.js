@@ -62,9 +62,9 @@ const LoginWindow = (props) => {
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="formSubmit" type="submit" value= "Sign in"/>
 
-            <hr/>
+            {/* <hr/>
             <label className = "noAccountLabel">Don't Have An Account?</label>
-            <input type="submit" formaction= "/signup" value="Sign up"/>
+            <input type="submit" formaction= "/signup" value="Sign up"/> */}
         </form>
     );
 };
