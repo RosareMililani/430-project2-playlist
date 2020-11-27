@@ -16,13 +16,8 @@ const ProfileForm = function (props) {
                 <h3 className="profileNotes"> Notes: </h3>
             </div> */
             <div className="accounts">
-                <img src="/assets/img/single-note-music.png" alt= "domo face" className="domoFaceProfile"/>
-                <h3 className="profileNotes"> Notes: </h3>
-                <br/>
-                <br/>
+                <img src="/assets/img/profile-notes.png" alt= "domo face" className="domoFaceProfile"/>
                 <h3 className="profileName"> Name: {/* {accounts.name} */}</h3>
-                <br/>
-                <br/>
                 <h3 className="profileUsername"> Username: {/* {accounts.age} */}</h3>
             </div>
         );

@@ -22,14 +22,12 @@ var ProfileForm = function ProfileForm(props) {
     React.createElement("div", {
       className: "accounts"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/single-note-music.png",
+      src: "/assets/img/profile-notes.png",
       alt: "domo face",
       className: "domoFaceProfile"
     }), /*#__PURE__*/React.createElement("h3", {
-      className: "profileNotes"
-    }, " Notes: "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h3", {
       className: "profileName"
-    }, " Name: "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h3", {
+    }, " Name: "), /*#__PURE__*/React.createElement("h3", {
       className: "profileUsername"
     }, " Username: "))
   ); //});
