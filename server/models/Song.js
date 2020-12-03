@@ -66,6 +66,18 @@ const SongSchema = new mongoose.Schema({
     ref: 'Account',
   },
 
+  user: {
+    type: String,
+    trim: true,
+    ref: 'Account',
+  },
+
+  personName: {
+    type: String,
+    trim: true,
+    ref: 'Account',
+  },
+
   createdDate: {
     type: Date,
     default: Date.now,
@@ -80,6 +92,9 @@ SongSchema.statics.toAPI = (doc) => ({
   genre: doc.genre,
   playlist: doc.playlist,
   createdDate: doc.createdDate,
+  /* owner:doc.owner, */
+  user: doc.user,
+  personName: doc.personName,
 });
 
 SongSchema.statics.findByOwner = (ownerId, callback) => {
@@ -87,13 +102,13 @@ SongSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return SongModel.find(search).select('name artist rating genre favorite playlist createdDate').lean().exec(callback);
+  return SongModel.find(search).select('name artist rating genre favorite playlist createdDate user personName').lean().exec(callback);
 };
 
 SongSchema.statics.findAll = (callback) => {
   const search = {};
 
-  return SongModel.find(search).select('name artist').lean().exec(callback);
+  return SongModel.find(search).select('name artist user').lean().exec(callback);
 };
 
 SongModel = mongoose.model('Song', SongSchema);

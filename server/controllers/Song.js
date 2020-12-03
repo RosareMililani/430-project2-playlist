@@ -15,7 +15,8 @@ const makerPage = (req, res) => {
 };
 
 const makeSong = (req, res) => {
-  if (!req.body.name || !req.body.artist || !req.body.rating) {
+  if (!req.body.name || !req.body.artist || !req.body.rating
+    || !req.body.genre || !req.body.favorite) {
     return res.status(400).json({ error: 'Oops! Name, artist, rating, genre, favorite, playlist are required' });
   }
 
@@ -27,6 +28,8 @@ const makeSong = (req, res) => {
     favorite: req.body.favorite,
     playlist: req.body.playlist,
     owner: req.session.account._id,
+    user: req.session.account.username,
+    personName: req.session.account.profileName,
   };
 
   const newSong = new Song.SongModel(songData);

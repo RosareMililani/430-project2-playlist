@@ -18,21 +18,23 @@ var handleSong = function handleSong(e) {
 };
 
 var handlePlaylist = function handlePlaylist(e) {
-  e.preventDefault(); //$("#songMessage").animate({ width: 'hide' }, 350);
+  e.preventDefault();
+  $("#songMessage").animate({
+    width: 'hide'
+  }, 350);
 
   if ($("#playlistName").val() == '') {
     handleError("Oops! Missing name information");
     return false;
-  } //sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
-  //loadSongsFromServer();
+  }
 
-
-  var added = document.getElementById("#playlistForm").value;
-  var dropdownPlaylist = documnet.getElementById("#songPlaylist");
-  var option = document.createElement("option");
-  option.text = added;
-  dropdownPlaylist.add(added); //});
-
+  sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
+    var added = document.getElementById("#playlistForm").value;
+    var dropdownPlaylist = documnet.getElementById("#songPlaylist");
+    var option = document.createElement("option");
+    option.text = added;
+    dropdownPlaylist.add(added);
+  });
   return false;
 };
 
@@ -195,12 +197,17 @@ var SongList = function SongList(props) {
   console.log(formattedDate); //if there is data, display onto screen
 
   var songNodes = props.songs.map(function (song) {
+    console.dir(song);
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "song"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "songName"
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
+      className: "songUserName"
+    }, "User: ", song.user), /*#__PURE__*/React.createElement("h3", {
+      className: "songProfileName"
+    }, "Profile: ", song.personName), /*#__PURE__*/React.createElement("h3", {
       className: "songArtist"
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
       className: "songRating"

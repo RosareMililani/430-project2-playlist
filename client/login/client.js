@@ -62,7 +62,7 @@ const LoginWindow = (props) => {
             </div>
             {/* <hr/>
             <label className = "noAccountLabel">Don't Have An Account?</label>
-            <input type="submit" formaction= "/signup" value="Sign up"/> */}
+            <button type="submit" formAction= "/signup" value="Sign up"/> */}
         </form>
     );
 };
@@ -117,10 +117,10 @@ const createLoginWindow = (csrf) => {
         document.querySelector("#content")
     );
 
-    /* ReactDOM.render(
-        <NoLogin csrf={csrf}/>,
-        document.querySelector("#no-login")
-    ); */
+    ReactDOM.render(
+        <CreateAccountButton label="Create An Account" />,
+        document.querySelector("#createAccount")
+    )
 };
 
 //render a new sinup window that can handle react events
@@ -160,6 +160,23 @@ const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
+};
+
+const CreateAccountButton = (props) => {
+    /* console.log("clikced on");
+    return(
+        <button onClick="/signup" action="/signup">{props.label}</button>
+    ); */
+    return (
+        <form
+            action="/signup"
+            method="GET">
+            <label className="noAccountLabel">Don't Have An Account?</label>
+            <input type="submit" /* formAction= "/signup" */ value="Sign up" />
+        </form>
+    );
+
+
 };
 
 //setup the rest of the page to allow our React components show various

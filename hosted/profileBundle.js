@@ -5,45 +5,61 @@
 //JSX is secured against unsafe input and has a 'this' context so each object
 //  made of it can have its own variable scope
 var ProfileForm = function ProfileForm(props) {
-  //const profileNodes = props.accounts.map(function(accounts){
-  return (
-    /*#__PURE__*/
-
-    /* <div key={accounts._id} className="accounts">
-        <img src="/assets/img/face.png" alt= "domo face" className="domoFaceProfile"/>
-        <h3 className="profileName"> Name: {accounts.profileName}</h3>
-        <br/>
-        <br/>
-        <h3 className="profileUsername"> Username: {accounts.username}</h3>
-        <br/>
-        <br/>
-        <h3 className="profileNotes"> Notes: </h3>
-    </div> */
-    React.createElement("div", {
-      className: "accounts"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/profile-notes.png",
-      alt: "domo face",
-      className: "domoFaceProfile"
-    }), /*#__PURE__*/React.createElement("h3", {
-      className: "profileName"
-    }, " Name: "), /*#__PURE__*/React.createElement("h3", {
-      className: "profileUsername"
-    }, " Username: "))
-  ); //});
-
+  //const songNodes = props.songs.map(function (song) {
+  //console.dir(song)
   return /*#__PURE__*/React.createElement("div", {
-    className: "listings"
-  }, profileNodes);
+    /* key={song._id}  */
+    className: "accounts"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "/assets/img/profile-notes.png",
+    alt: "domo face",
+    className: "domoFaceProfile"
+  }), /*#__PURE__*/React.createElement("h3", {
+    className: "profileName"
+  }, " Name: "), /*#__PURE__*/React.createElement("h3", {
+    className: "profileUsername"
+  }, " Username: ")); //});
+
+  /* return (
+      <div className= "profileInfo">
+          {songNodes}
+      </div>
+  ); */
+
+  /* //const profileNodes = props.accounts.map(function(accounts){
+      return (
+          <div key={accounts._id} className="accounts">
+              <img src="/assets/img/face.png" alt= "domo face" className="domoFaceProfile"/>
+              <h3 className="profileName"> Name: {accounts.profileName}</h3>
+              <br/>
+              <br/>
+              <h3 className="profileUsername"> Username: {accounts.username}</h3>
+              <br/>
+              <br/>
+              <h3 className="profileNotes"> Notes: </h3>
+          </div>
+          <div className="accounts">
+              <img src="/assets/img/profile-notes.png" alt= "domo face" className="domoFaceProfile"/>
+              <h3 className="profileName"> Name: {{accounts.name}}</h3>
+              <h3 className="profileUsername"> Username: {{accounts.age}}</h3>
+          </div>
+      );
+  //}); */
+
+  /* return (
+      <div className= "listings">
+          {profileNodes}
+      </div>
+  ); */
 };
-/* const loadSongsFromServer = () => {
-    sendAjax('GET', '/myPage', null, (data) => {
-        ReactDOM.render(
-            <SongList songs={data.songs} />, document.querySelector("#songs")
-        );
-    });
-}; */
-//accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
+
+var loadSongsFromServer = function loadSongsFromServer() {
+  sendAjax('GET', '/myPage', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+      songs: data.songs
+    }), document.querySelector("#songs"));
+  });
+}; //accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
 //without token, security on the server will prevent the form from working
 
 
@@ -51,6 +67,7 @@ var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
     csrf: csrf
   }), document.querySelector("#content"));
+  loadSongsFromServer();
 }; //attach events to page buttons
 
 
