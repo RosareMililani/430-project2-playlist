@@ -161,9 +161,10 @@ var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(CreateAccountButton, {
-    label: "Create An Account"
-  }), document.querySelector("#createAccount"));
+  /* ReactDOM.render(
+      <CreateAccountButton label="Create An Account" />,
+      document.querySelector("#createAccount")
+  ) */
 }; //render a new sinup window that can handle react events
 
 
@@ -206,17 +207,22 @@ var CreateAccountButton = function CreateAccountButton(props) {
   return(
       <button onClick="/signup" action="/signup">{props.label}</button>
   ); */
-  return /*#__PURE__*/React.createElement("form", {
-    action: "/signup",
-    method: "GET"
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "noAccountLabel"
-  }, "Don't Have An Account?"), /*#__PURE__*/React.createElement("input", {
-    type: "submit"
-    /* formAction= "/signup" */
-    ,
-    value: "Sign up"
-  }));
+  return (
+    /*#__PURE__*/
+
+    /* <form
+        action="/signup"
+        method="GET">
+        <label className="noAccountLabel">Don't Have An Account?</label>
+        <input type="submit" formAction= "/signup" value="Sign up" />
+    </form> */
+    React.createElement("form", {
+      action: "/signup"
+    }, /*#__PURE__*/React.createElement("input", {
+      type: "submit",
+      value: "Go to Signup"
+    }))
+  );
 }; //setup the rest of the page to allow our React components show various
 //  'pages. without leaving the page
 

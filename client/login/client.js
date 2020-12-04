@@ -60,10 +60,12 @@ const LoginWindow = (props) => {
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <input className="formSubmit" type="submit" value="Sign in" />
             </div>
+            {/* <div class="navlink"><a href="/signup">Don't have an account? Click here!</a></div> */}
             {/* <hr/>
             <label className = "noAccountLabel">Don't Have An Account?</label>
             <button type="submit" formAction= "/signup" value="Sign up"/> */}
         </form>
+
     );
 };
 
@@ -117,10 +119,10 @@ const createLoginWindow = (csrf) => {
         document.querySelector("#content")
     );
 
-    ReactDOM.render(
+    /* ReactDOM.render(
         <CreateAccountButton label="Create An Account" />,
         document.querySelector("#createAccount")
-    )
+    ) */
 };
 
 //render a new sinup window that can handle react events
@@ -168,12 +170,15 @@ const CreateAccountButton = (props) => {
         <button onClick="/signup" action="/signup">{props.label}</button>
     ); */
     return (
-        <form
+        /* <form
             action="/signup"
             method="GET">
             <label className="noAccountLabel">Don't Have An Account?</label>
-            <input type="submit" /* formAction= "/signup" */ value="Sign up" />
-        </form>
+            <input type="submit" formAction= "/signup" value="Sign up" />
+        </form> */
+        < form action = "/signup" >
+            <input type="submit" value="Go to Signup" />
+        </form >
     );
 
 
