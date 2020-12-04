@@ -16,7 +16,7 @@ const handleSong = (e) => {
     return false;
 };
 
-const handlePlaylist = (e) => {
+/* const handlePlaylist = (e) => {
     e.preventDefault();
 
     $("#songMessage").animate({ width: 'hide' }, 350);
@@ -35,7 +35,7 @@ const handlePlaylist = (e) => {
     });
 
     return false;
-};
+}; */
 
 const SongForm = (props) => {
     return (
@@ -76,11 +76,11 @@ const SongForm = (props) => {
                 <option value="favorite">Favorite</option>
                 <option value="dontFavorite">Don't Favorite</option>
             </select>
-            <label htmlFor="playlist">Playlist: </label>
+            {/* <label htmlFor="playlist">Playlist: </label>
             <select id="songPlaylist" type="dropdown" name="playlist" >
                 <option value="" hidden> -- Select One --</option>
                 <option value="Default">Default</option>
-            </select>
+            </select> */}
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!" />
             <input className="resetSong" type="reset" value="Clear!"/>
@@ -138,7 +138,7 @@ const SongList = function (props) {
                 {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" /> */}
                 <h3 className="songName"> Name: {song.name}</h3>
                 <h3 className="songUserName">User: {song.user}</h3>
-                <h3 className="songProfileName">Profile: {song.personName}</h3>
+                {/* <h3 className="songProfileName">Profile: {song.personName}</h3> */}
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
                 <h3 className="songRating"> Rating: {song.rating}/5</h3>
                 <h3 className="songGenre"> Genre: {song.genre}</h3>
@@ -174,9 +174,9 @@ const setup = function (csrf) {
         <SongForm csrf={csrf} />, document.querySelector("#makeSong")
     );
 
-    ReactDOM.render(
+    /* ReactDOM.render(
         <PlaylistForm csrf={csrf} />, document.querySelector("#makePlaylist")
-    );
+    ); */
 
     ReactDOM.render(
         <SongList songs={[]} />, document.querySelector("#songs")

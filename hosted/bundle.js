@@ -16,27 +16,27 @@ var handleSong = function handleSong(e) {
   });
   return false;
 };
+/* const handlePlaylist = (e) => {
+    e.preventDefault();
 
-var handlePlaylist = function handlePlaylist(e) {
-  e.preventDefault();
-  $("#songMessage").animate({
-    width: 'hide'
-  }, 350);
+    $("#songMessage").animate({ width: 'hide' }, 350);
 
-  if ($("#playlistName").val() == '') {
-    handleError("Oops! Missing name information");
+    if ($("#playlistName").val() == '') {
+        handleError("Oops! Missing name information");
+        return false;
+    }
+
+    sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
+        let added = document.getElementById("#playlistForm").value;
+        let dropdownPlaylist = documnet.getElementById("#songPlaylist");
+        let option = document.createElement("option");
+        option.text = added;
+        dropdownPlaylist.add(added);
+    });
+
     return false;
-  }
+}; */
 
-  sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
-    var added = document.getElementById("#playlistForm").value;
-    var dropdownPlaylist = documnet.getElementById("#songPlaylist");
-    var option = document.createElement("option");
-    option.text = added;
-    dropdownPlaylist.add(added);
-  });
-  return false;
-};
 
 var SongForm = function SongForm(props) {
   return /*#__PURE__*/React.createElement("form", {
@@ -119,18 +119,7 @@ var SongForm = function SongForm(props) {
     value: "favorite"
   }, "Favorite"), /*#__PURE__*/React.createElement("option", {
     value: "dontFavorite"
-  }, "Don't Favorite")), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "playlist"
-  }, "Playlist: "), /*#__PURE__*/React.createElement("select", {
-    id: "songPlaylist",
-    type: "dropdown",
-    name: "playlist"
-  }, /*#__PURE__*/React.createElement("option", {
-    value: "",
-    hidden: true
-  }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
-    value: "Default"
-  }, "Default")), /*#__PURE__*/React.createElement("input", {
+  }, "Don't Favorite")), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -206,8 +195,6 @@ var SongList = function SongList(props) {
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
       className: "songUserName"
     }, "User: ", song.user), /*#__PURE__*/React.createElement("h3", {
-      className: "songProfileName"
-    }, "Profile: ", song.personName), /*#__PURE__*/React.createElement("h3", {
       className: "songArtist"
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
       className: "songRating"
@@ -240,9 +227,10 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
   }), document.querySelector("#makeSong"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(PlaylistForm, {
-    csrf: csrf
-  }), document.querySelector("#makePlaylist"));
+  /* ReactDOM.render(
+      <PlaylistForm csrf={csrf} />, document.querySelector("#makePlaylist")
+  ); */
+
   ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
     songs: []
   }), document.querySelector("#songs"));

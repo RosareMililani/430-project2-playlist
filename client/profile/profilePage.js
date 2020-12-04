@@ -48,12 +48,45 @@ const ProfileForm = function (props) {
     ); */
 };
 
+const SongList = function (props) {
+    //reality check - but should never happen
+    if (props.users.length === 0) {
+        return (
+            <div className="songList">
+                <h3 className="emptySong">No Songs Avaliable</h3>
+            </div>
+        );
+    }
+
+    const songNodes = props.songs.map(function (song) {
+        return (
+            <div key={song._id} className="song">
+                <h3 className="songName"> Name: {song.name}</h3>
+                <h3 className="songArtist"> Artist: {song.artist}</h3>
+                <h3 className="songUserName">User: {song.user}</h3>
+            </div>
+        );
+    });
+
+    return (
+        <div className="songList">
+            {songNodes}
+        </div>
+    );
+};
+
 const loadSongsFromServer = () => {
     sendAjax('GET', '/myPage', null, (data) => {
         ReactDOM.render(
             <SongList songs={data.songs} />, document.querySelector("#songs")
         );
     });
+
+    /* sendAjax('GET', '/getSongs', null, (data) => {
+        ReactDOM.render(
+            <SongList songs={data.songs} />, document.querySelector("#songs")
+        );
+    }); */
 };
 
 //accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
@@ -62,6 +95,10 @@ const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <ProfileForm csrf={csrf} />,
         document.querySelector("#content")
+    );
+
+    ReactDOM.render(
+        <SongList songs={[]} />, document.querySelector("#songs")
     );
 
     loadSongsFromServer();

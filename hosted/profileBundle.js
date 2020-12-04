@@ -53,8 +53,40 @@ var ProfileForm = function ProfileForm(props) {
   ); */
 };
 
+var SongList = function SongList(props) {
+  //reality check - but should never happen
+  if (props.users.length === 0) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "songList"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "emptySong"
+    }, "No Songs Avaliable"));
+  }
+
+  var songNodes = props.songs.map(function (song) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: song._id,
+      className: "song"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "songName"
+    }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
+      className: "songArtist"
+    }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
+      className: "songUserName"
+    }, "User: ", song.user));
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "songList"
+  }, songNodes);
+};
+
 var loadSongsFromServer = function loadSongsFromServer() {
-  sendAjax('GET', '/myPage', null, function (data) {
+  /* sendAjax('GET', '/myPage', null, (data) => {
+      ReactDOM.render(
+          <SongList songs={data.songs} />, document.querySelector("#songs")
+      );
+  }); */
+  sendAjax('GET', '/getSongs', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
       songs: data.songs
     }), document.querySelector("#songs"));
@@ -67,6 +99,9 @@ var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
     csrf: csrf
   }), document.querySelector("#content"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+    songs: []
+  }), document.querySelector("#songs"));
   loadSongsFromServer();
 }; //attach events to page buttons
 
