@@ -16,27 +16,6 @@ const handleSong = (e) => {
     return false;
 };
 
-/* const handlePlaylist = (e) => {
-    e.preventDefault();
-
-    $("#songMessage").animate({ width: 'hide' }, 350);
-
-    if ($("#playlistName").val() == '') {
-        handleError("Oops! Missing name information");
-        return false;
-    }
-
-    sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
-        let added = document.getElementById("#playlistForm").value;
-        let dropdownPlaylist = documnet.getElementById("#songPlaylist");
-        let option = document.createElement("option");
-        option.text = added;
-        dropdownPlaylist.add(added);
-    });
-
-    return false;
-}; */
-
 const SongForm = (props) => {
     return (
         <form id="songForm"
@@ -117,22 +96,20 @@ const SongList = function (props) {
         );
     }
 
-    let now = new Date();
-    let formattedDate = now.toLocaleDateString(
-        'en-gb',
-        {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            timeZone: 'utc'
-        }
-    );
-    console.log(now);
-    console.log(formattedDate);
-
     //if there is data, display onto screen
     const songNodes = props.songs.map(function (song) {
         console.dir(song)
+        let today = new Date(song.createdDate);
+        let formattedDate = today.toLocaleDateString(
+            'en-gb',
+            {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                timeZone: 'utc'
+            }
+        );
+
         return (
             <div key={song._id} className="song">
                 {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" /> */}
@@ -142,7 +119,6 @@ const SongList = function (props) {
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
                 <h3 className="songRating"> Rating: {song.rating}/5</h3>
                 <h3 className="songGenre"> Genre: {song.genre}</h3>
-                {/* <h3 className="songDate"> Date : {song.createdDate}</h3> */}
                 <h3 className="songDate"> Date Added: {formattedDate}</h3>
             </div>
         );
@@ -173,10 +149,6 @@ const setup = function (csrf) {
     ReactDOM.render(
         <SongForm csrf={csrf} />, document.querySelector("#makeSong")
     );
-
-    /* ReactDOM.render(
-        <PlaylistForm csrf={csrf} />, document.querySelector("#makePlaylist")
-    ); */
 
     ReactDOM.render(
         <SongList songs={[]} />, document.querySelector("#songs")

@@ -10,19 +10,6 @@ let SongModel = {};
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const now = new Date();
-const formattedDate = now.toLocaleDateString(
-  'en-gb',
-  {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'utc',
-  },
-);
-console.log(now);
-console.log(formattedDate);
-
 const SongSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -83,7 +70,7 @@ const SongSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-console.log(formattedDate);
+//console.log(formattedDate);
 
 SongSchema.statics.toAPI = (doc) => ({
   name: doc.name,
@@ -106,10 +93,12 @@ SongSchema.statics.findByOwner = (ownerId, callback) => {
 };
 
 SongSchema.statics.findAll = (callback) => {
-  const search = {};
+  const search = {
+  };
 
   return SongModel.find(search).select('name artist user').lean().exec(callback);
 };
+
 
 SongModel = mongoose.model('Song', SongSchema);
 

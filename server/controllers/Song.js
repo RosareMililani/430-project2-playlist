@@ -14,6 +14,18 @@ const makerPage = (req, res) => {
   });
 };
 
+const songPage = (req, res) => {
+  // res.render('app');
+  Song.SongModel.findAll((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    return res.render('app', { csrfToken: req.csrfToken(), songs: docs });
+  });
+};
+
 const makeSong = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating
     || !req.body.genre || !req.body.favorite) {
@@ -50,6 +62,32 @@ const makeSong = (req, res) => {
   return songPromise;
 };
 
+const userSongs = (req, res) => {
+  const songData = {
+    name: req.body.name,
+    artist: req.body.artist,
+    owner: req.session.account._id,
+    user: req.session.account.username,
+  };
+
+  const newSong = new Song.SongModel(songData);
+
+  const songPromise = newSong.save();
+
+  songPromise.then(() => res.json({ redirect: '/songs' }));
+
+  songPromise.catch((err) => {
+    console.log(err);
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'Song already exists' });
+    }
+
+    return res.status(400).json({ error: 'An error occured' });
+  });
+
+  return songPromise;
+};
+
 // get JSON responses of Songs for a user
 // allow our client app to update dynamically using React
 // app will update without changing pages, dynamically grab updates from the server
@@ -68,8 +106,9 @@ const getSongs = (request, response) => {
   });
 };
 
+
 const getAllSongs = (request, response) => {
-  // const req = request;
+  const req = request;
   const res = response;
 
   return Song.SongModel.findAll((err, docs) => {
@@ -83,6 +122,8 @@ const getAllSongs = (request, response) => {
 };
 
 module.exports.makerPage = makerPage;
+module.exports.songPage = songPage;
 module.exports.getSongs = getSongs;
 module.exports.make = makeSong;
+module.exports.song = userSongs;
 module.exports.getAllSongs = getAllSongs;

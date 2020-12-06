@@ -28,7 +28,7 @@ const SongList = function (props) {
 //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 const loadSongsFromServer = () => {
-    sendAjax('GET', '/getSongs', null, (data) => {
+    sendAjax('GET', '/allSongs', null, (data) => {
         ReactDOM.render(
             <SongList songs={data.songs} />, document.querySelector("#songs")
         );

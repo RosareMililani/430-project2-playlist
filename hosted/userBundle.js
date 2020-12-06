@@ -30,7 +30,7 @@ var SongList = function SongList(props) {
 
 
 var loadSongsFromServer = function loadSongsFromServer() {
-  sendAjax('GET', '/getSongs', null, function (data) {
+  sendAjax('GET', '/allSongs', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
       songs: data.songs
     }), document.querySelector("#songs"));

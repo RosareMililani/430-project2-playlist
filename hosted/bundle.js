@@ -16,27 +16,6 @@ var handleSong = function handleSong(e) {
   });
   return false;
 };
-/* const handlePlaylist = (e) => {
-    e.preventDefault();
-
-    $("#songMessage").animate({ width: 'hide' }, 350);
-
-    if ($("#playlistName").val() == '') {
-        handleError("Oops! Missing name information");
-        return false;
-    }
-
-    sendAjax('POST', $("#playlistForm").attr("action"), $("#playlistForm").serialize(), function () {
-        let added = document.getElementById("#playlistForm").value;
-        let dropdownPlaylist = documnet.getElementById("#songPlaylist");
-        let option = document.createElement("option");
-        option.text = added;
-        dropdownPlaylist.add(added);
-    });
-
-    return false;
-}; */
-
 
 var SongForm = function SongForm(props) {
   return /*#__PURE__*/React.createElement("form", {
@@ -174,19 +153,30 @@ var SongList = function SongList(props) {
       className: "emptySong"
     }, "No Songs Avaliable"));
   }
-
-  var now = new Date();
-  var formattedDate = now.toLocaleDateString('en-gb', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'utc'
-  });
+  /* let now = new Date();
+  let formattedDate = now.toLocaleDateString(
+      'en-gb',
+      {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          timeZone: 'utc'
+      }
+  );
   console.log(now);
-  console.log(formattedDate); //if there is data, display onto screen
+  console.log(formattedDate); */
+  //if there is data, display onto screen
+
 
   var songNodes = props.songs.map(function (song) {
     console.dir(song);
+    var today = new Date(song.createdDate);
+    var formattedDate = today.toLocaleDateString('en-gb', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      timeZone: 'utc'
+    });
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "song"
@@ -227,10 +217,6 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
   }), document.querySelector("#makeSong"));
-  /* ReactDOM.render(
-      <PlaylistForm csrf={csrf} />, document.querySelector("#makePlaylist")
-  ); */
-
   ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
     songs: []
   }), document.querySelector("#songs"));

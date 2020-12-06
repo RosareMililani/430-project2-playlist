@@ -81,16 +81,16 @@ var SongList = function SongList(props) {
 };
 
 var loadSongsFromServer = function loadSongsFromServer() {
-  /* sendAjax('GET', '/myPage', null, (data) => {
-      ReactDOM.render(
-          <SongList songs={data.songs} />, document.querySelector("#songs")
-      );
-  }); */
-  sendAjax('GET', '/getSongs', null, function (data) {
+  sendAjax('GET', '/myPage', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
       songs: data.songs
     }), document.querySelector("#songs"));
   });
+  /* sendAjax('GET', '/getSongs', null, (data) => {
+      ReactDOM.render(
+          <SongList songs={data.songs} />, document.querySelector("#songs")
+      );
+  }); */
 }; //accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
 //without token, security on the server will prevent the form from working
 
