@@ -26,7 +26,7 @@ var handleSignup = function handleSignup(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '' || $("#profileName").val() == '') {
+  if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
     handleError("Oops! All fields are required");
     return false;
   }
@@ -96,13 +96,6 @@ var SignupWindow = function SignupWindow(props) {
   }, /*#__PURE__*/React.createElement("label", {
     className: "signupLabel"
   }, "Sign Up"), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "profileName"
-  }, "Name: "), /*#__PURE__*/React.createElement("input", {
-    id: "profileName",
-    type: "text",
-    name: "profileName",
-    placeholder: "your name"
-  }), /*#__PURE__*/React.createElement("label", {
     htmlFor: "username"
   }, "Username: "), /*#__PURE__*/React.createElement("input", {
     id: "user",
@@ -164,9 +157,9 @@ var setup = function setup(csrf) {
     e.preventDefault();
     createLoginWindow(csrf);
     return false;
-  }); //createLoginWindow(csrf); //default window
-
-  createSignupWindow(csrf);
+  });
+  createLoginWindow(csrf); //default window
+  //createSignupWindow(csrf);
 }; //since we are never reloading the page now, we need to make requests
 //  to get new CSRF from the server
 //allow us to reach out and get new tokens when needed
@@ -176,29 +169,6 @@ var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
   });
-};
-
-var CreateAccountButton = function CreateAccountButton(props) {
-  /* console.log("clikced on");
-  return(
-      <button onClick="/signup" action="/signup">{props.label}</button>
-  ); */
-  return (
-    /*#__PURE__*/
-
-    /* <form
-        action="/signup"
-        method="GET">
-        <label className="noAccountLabel">Don't Have An Account?</label>
-        <input type="submit" formAction= "/signup" value="Sign up" />
-    </form> */
-    React.createElement("form", {
-      action: "/signup"
-    }, /*#__PURE__*/React.createElement("input", {
-      type: "submit",
-      value: "Go to Signup"
-    }))
-  );
 }; //setup the rest of the page to allow our React components show various
 //  'pages. without leaving the page
 

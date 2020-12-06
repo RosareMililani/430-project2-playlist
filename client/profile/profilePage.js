@@ -63,8 +63,21 @@ const SongList = function (props) {
         );
     });
 
+    const profileInfo = props.songs.map(function (song) {
+        console.dir(song)
+        return (
+            <div key={song._id} className="accounts">
+                <img src="/assets/img/profile-notes.png" alt="image profile" className="imageProfile" />
+                <h3 className="profileName"> Username: {song.user}</h3>
+                {/* <h3 className="songLabel">My Added Songs:</h3> */}
+            </div>
+        );
+    });
+
     return (
+        
         <div className="songList">
+            {profileInfo}
             {songNodes}
         </div>
     );
@@ -72,11 +85,11 @@ const SongList = function (props) {
 
 
 const loadSongsFromServer = () => {
-    sendAjax('GET', '/getSongs', null, (data) => {
+    /* sendAjax('GET', '/getSongs', null, (data) => {
         ReactDOM.render(
             <ProfileForm songs={data.songs} />, document.querySelector("#content")
         );
-    });
+    }); */
     sendAjax('GET', '/getSongs', null, (data) => {
         ReactDOM.render(
             <SongList songs={data.songs} />, document.querySelector("#songs")
@@ -86,9 +99,9 @@ const loadSongsFromServer = () => {
 
 //attach events to page buttons
 const setup = (csrf) => {
-    ReactDOM.render(
+    /* ReactDOM.render(
         <ProfileForm songs={[]} />, document.querySelector("#content")
-    );
+    ); */
     //might need to switch to this?
     /* ReactDOM.render(
         <ProfileForm songs={data.songs} />, document.querySelector("#content")

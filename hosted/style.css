@@ -34,7 +34,7 @@ nav:nth-child(1) {
     float: left;
 }
 
-.navlink-logout {
+.navlink-logout, .navlink-songs {
     padding: 5px;
     padding-top: 12px;
     padding-right: 20px;
@@ -44,7 +44,9 @@ nav:nth-child(1) {
     float: right;
 }
 
-.navlink a, .navlink-logout a, .navlink a:link, .navlink-logout a:link, .navlink a:visited, .navlink-logout a:visited, .navlink a:hover, .navlink-logout a:hover, .navlink a:active, .navlink-logout a:active {
+.navlink a, .navlink-logout a, .navlink-songs a, .navlink a:link, .navlink-logout a:link, .navlink-songs a:link, 
+.navlink a:visited, .navlink-logout a:visited, .navlink-songs a:visited, .navlink a:hover, .navlink-logout a:hover, 
+.navlink-songs a:hover, .navlink a:active, .navlink-logout a:active, .navlink-songs a:active {
     color: white;
     text-decoration: none;
     padding: 5px;
@@ -59,10 +61,12 @@ nav:nth-child(1) {
 }
 
 .songForm {
-    border: 2px solid #338acc;
+    /* border: 2px solid #338acc; */
+    border-style: dashed;
     height: 475px;
     width: 300px;
     margin-top: 15px;
+    margin-left: 40%;
     padding-top: 10px;
     background-color: #55acee;
     border-radius: 4px;
@@ -84,18 +88,6 @@ nav:nth-child(1) {
     display: inline-block;
     width: 100px;
     margin-left: 5px;
-    margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    float: left;
-    color: white;
-}
-
-.playlistForm label {
-    display: inline-block;
-    width: 150px;
-    margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;

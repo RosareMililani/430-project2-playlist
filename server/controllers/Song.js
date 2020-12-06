@@ -62,7 +62,6 @@ const makeSong = (req, res) => {
     favorite: req.body.favorite,
     owner: req.session.account._id,
     user: req.session.account.username,
-    personName: req.session.account.profileName,
   };
 
   const newSong = new Song.SongModel(songData);

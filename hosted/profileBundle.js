@@ -68,17 +68,30 @@ var SongList = function SongList(props) {
       className: "songDate"
     }, " Date Added: ", formattedDate));
   });
+  var profileInfo = props.songs.map(function (song) {
+    console.dir(song);
+    return /*#__PURE__*/React.createElement("div", {
+      key: song._id,
+      className: "accounts"
+    }, /*#__PURE__*/React.createElement("img", {
+      src: "/assets/img/profile-notes.png",
+      alt: "image profile",
+      className: "imageProfile"
+    }), /*#__PURE__*/React.createElement("h3", {
+      className: "profileName"
+    }, " Username: ", song.user));
+  });
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
-  }, songNodes);
+  }, profileInfo, songNodes);
 };
 
 var loadSongsFromServer = function loadSongsFromServer() {
-  sendAjax('GET', '/getSongs', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
-      songs: data.songs
-    }), document.querySelector("#content"));
-  });
+  /* sendAjax('GET', '/getSongs', null, (data) => {
+      ReactDOM.render(
+          <ProfileForm songs={data.songs} />, document.querySelector("#content")
+      );
+  }); */
   sendAjax('GET', '/getSongs', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
       songs: data.songs
@@ -88,14 +101,14 @@ var loadSongsFromServer = function loadSongsFromServer() {
 
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
-    songs: []
-  }), document.querySelector("#content")); //might need to switch to this?
+  /* ReactDOM.render(
+      <ProfileForm songs={[]} />, document.querySelector("#content")
+  ); */
+  //might need to switch to this?
 
   /* ReactDOM.render(
       <ProfileForm songs={data.songs} />, document.querySelector("#content")
   ); */
-
   ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
     songs: []
   }), document.querySelector("#songs"));

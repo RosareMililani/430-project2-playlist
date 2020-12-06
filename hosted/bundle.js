@@ -114,63 +114,7 @@ var SongForm = function SongForm(props) {
   }), /*#__PURE__*/React.createElement("label", {
     className: "displayError"
   }, "Message: "));
-};
-/* Displays songs to the screen */
-
-/* const SongList = function (props) {
-    //no songs added to the data
-    if (props.songs.length === 0) {
-        return (
-            <div className="songList">
-                <h3 className="emptySong">No Songs Avaliable</h3>
-            </div>
-        );
-    }
-
-    //if there is data, display onto screen
-    const songNodes = props.songs.map(function (song) {
-        console.dir(song)
-        let today = new Date(song.createdDate);
-        let formattedDate = today.toLocaleDateString(
-            'en-gb',
-            {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                timeZone: 'utc'
-            }
-        );
-
-        return (
-            <div key={song._id} className="song">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-                <h3 className="songName"> Name: {song.name}</h3>
-                <h3 className="songUserName">User: {song.user}</h3>
-                <h3 className="songArtist"> Artist: {song.artist}</h3>
-                <h3 className="songRating"> Rating: {song.rating}/5</h3>
-                <h3 className="songGenre"> Genre: {song.genre}</h3>
-                <h3 className="songDate"> Date Added: {formattedDate}</h3>
-            </div>
-        );
-    });
-
-    return (
-        <div className="songList">
-            {songNodes}
-        </div>
-    );
-}; */
-//grabs songs from the server and render a SongsList
-//periodically update the screen with changes
-
-/* const loadSongsFromServer = () => {
-    sendAjax('GET', '/getSongs', null, (data) => {
-        ReactDOM.render(
-            <SongList songs={data.songs} />, document.querySelector("#songs")
-        );
-    });
-}; */
-//render out SongForm to the page and render default SongsList
+}; //render out SongForm to the page and render default SongsList
 //songs attribute of SongList is empty array - because we dont have 
 //  data yet, but will at least get the HTML onto the page while waiting 
 //  for server
@@ -180,10 +124,6 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
   }), document.querySelector("#makeSong"));
-  /* ReactDOM.render(
-      <SongList songs={[]} />, document.querySelector("#songs")
-  );
-    loadSongsFromServer(); */
 }; //allow us to get CSRF token for new submissions
 
 

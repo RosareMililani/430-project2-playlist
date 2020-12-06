@@ -24,7 +24,7 @@ const handleSignup = (e) => {
 
     $("#songMessage").animate({ width: 'hide' }, 350);
 
-    if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '' || $("#profileName").val() == '') {
+    if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
         handleError("Oops! All fields are required");
         return false;
     }
@@ -77,8 +77,6 @@ const SignupWindow = (props) => {
         >
             <div className="container">
                 <label className="signupLabel">Sign Up</label>
-                <label htmlFor="profileName">Name: </label>
-                <input id="profileName" type="text" name="profileName" placeholder="your name" />
                 <label htmlFor="username">Username: </label>
                 <input id="user" type="text" name="username" placeholder="username" />
                 <label htmlFor="pass">Password: </label>

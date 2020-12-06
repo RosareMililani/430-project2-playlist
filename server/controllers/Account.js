@@ -15,11 +15,6 @@ const settingsPage = (req, res) => {
   res.render('settings', { csrfToken: req.csrfToken() });
 };
 
-/* // lead to info page
-const myPage = (req, res) => {
-  res.render('myPage', { csrfToken: req.csrfToken() });
-}; */
-
 // remove a user session - on logout
 const logout = (req, res) => {
   req.session.destroy();
@@ -71,7 +66,6 @@ const signup = (request, response) => {
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
     const accountData = {
       username: req.body.username,
-      profileName: req.body.profileName,
       salt,
       password: hash,
     };
@@ -156,7 +150,6 @@ module.exports.loginPage = loginPage;
 module.exports.signUpPage = signUpPage;
 module.exports.settingsPage = settingsPage;
 module.exports.login = login;
-// module.exports.myPage = myPage;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
