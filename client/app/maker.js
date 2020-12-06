@@ -1,3 +1,4 @@
+//checks if all information is filled out 
 const handleSong = (e) => {
     e.preventDefault();
 
@@ -16,6 +17,7 @@ const handleSong = (e) => {
     return false;
 };
 
+//creates the information that will be stored
 const SongForm = (props) => {
     return (
         <form id="songForm"

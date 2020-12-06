@@ -1,39 +1,10 @@
-const ProfileForm = (props) => {
-    if (props.songs.length === 0) {
-        return (
-            <div className="profileInfo">
-                <h3 className="emptySong">No Info Avaliable</h3>
-            </div>
-        );
-    }
-
-    const profileInfo = props.songs.map(function (song) {
-        console.dir(song)
-        return (
-            <div key={song._id} className="accounts">
-                <img src="/assets/img/profile-notes.png" alt="image profile" className="imageProfile" />
-                <h3 className="profileName"> Username: {song.user}</h3>
-                <h3 className="profileUsername"> Name: {song.personName}</h3>
-                {/* <h3 className="songLabel">My Added Songs:</h3> */}
-            </div>
-        );
-    });
-
-    return (
-        <div className="profileInfo">
-            <h3 className="songLabel">My Added Songs:</h3>
-            {profileInfo}
-        </div>
-    );
-};
-
 /* Displays songs to the screen */
-const SongList = function (props) {
+const ProfileForm = function (props) {
     //no songs added to the data
     if (props.songs.length === 0) {
         return (
             <div className="songList">
-                <h3 className="emptySong">No Songs Avaliable</h3>
+                <h3 className="emptySong">No Added Songs Yet</h3>
             </div>
         );
     }
@@ -52,6 +23,7 @@ const SongList = function (props) {
             }
         );
 
+        //display all information
         return (
             <div key={song._id} className="song">
                 <h3 className="songName"> Name: {song.name}</h3>
@@ -59,56 +31,33 @@ const SongList = function (props) {
                 <h3 className="songRating"> Rating: {song.rating}/5</h3>
                 <h3 className="songGenre"> Genre: {song.genre}</h3>
                 <h3 className="songDate"> Date Added: {formattedDate}</h3>
+                <h3 className="songUser"> User: {song.user}</h3>
             </div>
         );
     });
 
-    const profileInfo = props.songs.map(function (song) {
-        console.dir(song)
-        return (
-            <div key={song._id} className="accounts">
-                <img src="/assets/img/profile-notes.png" alt="image profile" className="imageProfile" />
-                <h3 className="profileName"> Username: {song.user}</h3>
-                {/* <h3 className="songLabel">My Added Songs:</h3> */}
-            </div>
-        );
-    });
-
+    //return information
     return (
-        
         <div className="songList">
-            {profileInfo}
+            <h3 className="songLabel">Your Added Songs:</h3>
             {songNodes}
         </div>
     );
 };
 
-
+//load in song data from /getSongs endpoint
 const loadSongsFromServer = () => {
-    /* sendAjax('GET', '/getSongs', null, (data) => {
-        ReactDOM.render(
-            <ProfileForm songs={data.songs} />, document.querySelector("#content")
-        );
-    }); */
     sendAjax('GET', '/getSongs', null, (data) => {
         ReactDOM.render(
-            <SongList songs={data.songs} />, document.querySelector("#songs")
+            <ProfileForm songs={data.songs} />, document.querySelector("#songs")
         );
     });
 };
 
 //attach events to page buttons
 const setup = (csrf) => {
-    /* ReactDOM.render(
-        <ProfileForm songs={[]} />, document.querySelector("#content")
-    ); */
-    //might need to switch to this?
-    /* ReactDOM.render(
-        <ProfileForm songs={data.songs} />, document.querySelector("#content")
-    ); */
-
     ReactDOM.render(
-        <SongList songs={[]} />, document.querySelector("#songs")
+        <ProfileForm songs={[]} />, document.querySelector("#songs")
     );
     loadSongsFromServer();
 };
@@ -121,6 +70,6 @@ const getToken = () => {
 };
 
 //page load - getToken() to get new CSRF token and setup React components
-$(document).ready(function() {
+$(document).ready(function () {
     getToken();
 });

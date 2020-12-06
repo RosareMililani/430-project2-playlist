@@ -1,46 +1,14 @@
 "use strict";
 
-var ProfileForm = function ProfileForm(props) {
-  if (props.songs.length === 0) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "profileInfo"
-    }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptySong"
-    }, "No Info Avaliable"));
-  }
-
-  var profileInfo = props.songs.map(function (song) {
-    console.dir(song);
-    return /*#__PURE__*/React.createElement("div", {
-      key: song._id,
-      className: "accounts"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/profile-notes.png",
-      alt: "image profile",
-      className: "imageProfile"
-    }), /*#__PURE__*/React.createElement("h3", {
-      className: "profileName"
-    }, " Username: ", song.user), /*#__PURE__*/React.createElement("h3", {
-      className: "profileUsername"
-    }, " Name: ", song.personName));
-  });
-  return /*#__PURE__*/React.createElement("div", {
-    className: "profileInfo"
-  }, /*#__PURE__*/React.createElement("h3", {
-    className: "songLabel"
-  }, "My Added Songs:"), profileInfo);
-};
 /* Displays songs to the screen */
-
-
-var SongList = function SongList(props) {
+var ProfileForm = function ProfileForm(props) {
   //no songs added to the data
   if (props.songs.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "songList"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptySong"
-    }, "No Songs Avaliable"));
+    }, "No Added Songs Yet"));
   } //if there is data, display onto screen
 
 
@@ -66,34 +34,20 @@ var SongList = function SongList(props) {
       className: "songGenre"
     }, " Genre: ", song.genre), /*#__PURE__*/React.createElement("h3", {
       className: "songDate"
-    }, " Date Added: ", formattedDate));
-  });
-  var profileInfo = props.songs.map(function (song) {
-    console.dir(song);
-    return /*#__PURE__*/React.createElement("div", {
-      key: song._id,
-      className: "accounts"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/profile-notes.png",
-      alt: "image profile",
-      className: "imageProfile"
-    }), /*#__PURE__*/React.createElement("h3", {
-      className: "profileName"
-    }, " Username: ", song.user));
+    }, " Date Added: ", formattedDate), /*#__PURE__*/React.createElement("h3", {
+      className: "songUser"
+    }, " User: ", song.user));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
-  }, profileInfo, songNodes);
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "songLabel"
+  }, "Your Added Songs:"), songNodes);
 };
 
 var loadSongsFromServer = function loadSongsFromServer() {
-  /* sendAjax('GET', '/getSongs', null, (data) => {
-      ReactDOM.render(
-          <ProfileForm songs={data.songs} />, document.querySelector("#content")
-      );
-  }); */
   sendAjax('GET', '/getSongs', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
       songs: data.songs
     }), document.querySelector("#songs"));
   });
@@ -101,15 +55,7 @@ var loadSongsFromServer = function loadSongsFromServer() {
 
 
 var setup = function setup(csrf) {
-  /* ReactDOM.render(
-      <ProfileForm songs={[]} />, document.querySelector("#content")
-  ); */
-  //might need to switch to this?
-
-  /* ReactDOM.render(
-      <ProfileForm songs={data.songs} />, document.querySelector("#content")
-  ); */
-  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
     songs: []
   }), document.querySelector("#songs"));
   loadSongsFromServer();

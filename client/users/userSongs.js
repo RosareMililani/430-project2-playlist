@@ -1,3 +1,4 @@
+//creates the list of songs to be displayed, only grabs the information needed
 const SongList = function (props) {
     //reality check - but should never happen
     if (props.songs.length === 0) {
@@ -8,6 +9,7 @@ const SongList = function (props) {
         );
     }
 
+    //grabs the needed stored information 
     const songNodes = props.songs.map(function (song) {
         return (
             <div key={song._id} className="song">
@@ -19,6 +21,7 @@ const SongList = function (props) {
         );
     });
 
+    //displays the information
     return (
         <div className="songList">
             <h3 className="songLabel">All Users Songs:</h3>
