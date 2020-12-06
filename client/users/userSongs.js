@@ -11,15 +11,17 @@ const SongList = function (props) {
     const songNodes = props.songs.map(function (song) {
         return (
             <div key={song._id} className="song">
+                <img src="/assets/img/favorite-note.png" alt="music image" className="musicImage" />
                 <h3 className="songName"> Name: {song.name}</h3>
-                <h3 className="songArtist"> Artist: {song.artist}</h3>
-                <h3 className="songUserName">User: {song.user}</h3>
+                <h3 className="songArtistAll"> Artist: {song.artist}</h3>
+                <h3 className="songUserName">Added By: {song.user}</h3>
             </div>
         );
     });
 
     return (
         <div className="songList">
+            <h3 className="songLabel">All Users Songs:</h3>
             {songNodes}
         </div>
     );

@@ -14,17 +14,23 @@ var SongList = function SongList(props) {
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "song"
-    }, /*#__PURE__*/React.createElement("h3", {
+    }, /*#__PURE__*/React.createElement("img", {
+      src: "/assets/img/favorite-note.png",
+      alt: "music image",
+      className: "musicImage"
+    }), /*#__PURE__*/React.createElement("h3", {
       className: "songName"
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
-      className: "songArtist"
+      className: "songArtistAll"
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
       className: "songUserName"
-    }, "User: ", song.user));
+    }, "Added By: ", song.user));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
-  }, songNodes);
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "songLabel"
+  }, "All Users Songs:"), songNodes);
 }; //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 

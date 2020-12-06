@@ -14,13 +14,14 @@ const ProfileForm = (props) => {
                 <img src="/assets/img/profile-notes.png" alt="image profile" className="imageProfile" />
                 <h3 className="profileName"> Username: {song.user}</h3>
                 <h3 className="profileUsername"> Name: {song.personName}</h3>
-                <h3 className="songLabel">My Added Songs:</h3>
+                {/* <h3 className="songLabel">My Added Songs:</h3> */}
             </div>
         );
     });
 
     return (
         <div className="profileInfo">
+            <h3 className="songLabel">My Added Songs:</h3>
             {profileInfo}
         </div>
     );

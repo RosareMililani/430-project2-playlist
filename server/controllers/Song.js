@@ -25,6 +25,17 @@ const songPage = (req, res) => {
   });
 };
 
+const songPageOut = (req, res) => {
+  Song.SongModel.findAll((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    return res.render('songPageOut', { csrfToken: req.csrfToken(), songs: docs });
+  });
+};
+
 // lead to info page
 const myPage = (req, res) => {
   Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
@@ -174,6 +185,7 @@ const getAllSongs = (request, response) => {
 
 module.exports.makerPage = makerPage;
 module.exports.songPage = songPage;
+module.exports.songPageOut = songPageOut;
 module.exports.myPage = myPage;
 module.exports.getSongs = getSongs;
 module.exports.getAllSongs = getAllSongs;

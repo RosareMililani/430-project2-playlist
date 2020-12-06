@@ -129,6 +129,7 @@ const setup = (csrf) => {
     });
 
     createLoginWindow(csrf); //default window
+    //createSignupWindow(csrf);
 };
 
 //since we are never reloading the page now, we need to make requests
@@ -138,26 +139,6 @@ const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
-};
-
-const CreateAccountButton = (props) => {
-    /* console.log("clikced on");
-    return(
-        <button onClick="/signup" action="/signup">{props.label}</button>
-    ); */
-    return (
-        /* <form
-            action="/signup"
-            method="GET">
-            <label className="noAccountLabel">Don't Have An Account?</label>
-            <input type="submit" formAction= "/signup" value="Sign up" />
-        </form> */
-        < form action = "/signup" >
-            <input type="submit" value="Go to Signup" />
-        </form >
-    );
-
-
 };
 
 //setup the rest of the page to allow our React components show various

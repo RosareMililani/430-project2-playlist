@@ -22,13 +22,13 @@ var ProfileForm = function ProfileForm(props) {
       className: "profileName"
     }, " Username: ", song.user), /*#__PURE__*/React.createElement("h3", {
       className: "profileUsername"
-    }, " Name: ", song.personName), /*#__PURE__*/React.createElement("h3", {
-      className: "songLabel"
-    }, "My Added Songs:"));
+    }, " Name: ", song.personName));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "profileInfo"
-  }, profileInfo);
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "songLabel"
+  }, "My Added Songs:"), profileInfo);
 };
 /* Displays songs to the screen */
 
@@ -74,11 +74,6 @@ var SongList = function SongList(props) {
 };
 
 var loadSongsFromServer = function loadSongsFromServer() {
-  /* sendAjax('GET', '/myPage', null, (data) => {
-      ReactDOM.render(
-          <SongList songs={data.songs} />, document.querySelector("#songs")
-      );
-  }); */
   sendAjax('GET', '/getSongs', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
       songs: data.songs

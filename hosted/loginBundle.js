@@ -79,27 +79,6 @@ var LoginWindow = function LoginWindow(props) {
     type: "submit",
     value: "Sign in"
   })));
-};
-
-var NoLogin = function NoLogin(props) {
-  return /*#__PURE__*/React.createElement("form", {
-    id: "nologin",
-    name: "nologin"
-    /* onSubmit = {handleNoLogin} */
-    ,
-    action: "/signup",
-    method: "POST",
-    className: "mainSignUpForm"
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "noAccountLabel"
-  }, "Don't Have An Account?"), /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "_csrf",
-    value: props.csrf
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "submit",
-    value: "Sign up"
-  }));
 }; //alows to quickly switch between the signup and login paes without actually
 //  changing the web page
 
@@ -161,10 +140,6 @@ var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
-  /* ReactDOM.render(
-      <CreateAccountButton label="Create An Account" />,
-      document.querySelector("#createAccount")
-  ) */
 }; //render a new sinup window that can handle react events
 
 
@@ -189,8 +164,9 @@ var setup = function setup(csrf) {
     e.preventDefault();
     createLoginWindow(csrf);
     return false;
-  });
-  createLoginWindow(csrf); //default window
+  }); //createLoginWindow(csrf); //default window
+
+  createSignupWindow(csrf);
 }; //since we are never reloading the page now, we need to make requests
 //  to get new CSRF from the server
 //allow us to reach out and get new tokens when needed
