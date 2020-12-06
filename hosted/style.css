@@ -380,9 +380,10 @@ img.domoFace {
     float: left;
 }
 
-img.domoFaceProfile {
+img.imageProfile {
     margin-left: 25px;
     margin-right: 10px;
+    margin-bottom: 10px;
     height: 250px;
     width: 250px;
     border: 2px solid #55acee;
@@ -462,6 +463,15 @@ h3.profileUsername {
     font-weight: bold;
     padding-left: 65px;
     font-size: 1.5em;
+}
+
+h3.songLabel {
+    /* float:left; */
+    width: 200px;
+    font-weight: bold;
+    padding-left: 65px;
+    font-size: 1.5em;
+    text-decoration: underline;
 }
 
 h3.profileNotes {

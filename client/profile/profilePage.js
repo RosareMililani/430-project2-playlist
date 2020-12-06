@@ -1,57 +1,35 @@
-//JSX is a cutsom syntax provided by React that lets you create HTML-like 
-//  objects in JS as valid syntax
-//JSX is secured against unsafe input and has a 'this' context so each object
-//  made of it can have its own variable scope
-const ProfileForm = function (props) {
-    const songNodes = props.songs.map(function (song) {
-        //console.dir(song)
+const ProfileForm = (props) => {
+    if (props.songs.length === 0) {
+        return (
+            <div className="profileInfo">
+                <h3 className="emptySong">No Info Avaliable</h3>
+            </div>
+        );
+    }
+
+    const profileInfo = props.songs.map(function (song) {
+        console.dir(song)
         return (
             <div key={song._id} className="accounts">
-                <img src="/assets/img/profile-notes.png" alt= "domo face" className="domoFaceProfile"/>
-                <h3 className="profileName"> Name: {song.user}</h3>
-                <h3 className="profileUsername"> Username: {song.personName}</h3>
-                <input type="hidden" name="_csrf" value={props.csrf} />
+                <img src="/assets/img/profile-notes.png" alt="image profile" className="imageProfile" />
+                <h3 className="profileName"> Username: {song.user}</h3>
+                <h3 className="profileUsername"> Name: {song.personName}</h3>
+                <h3 className="songLabel">My Added Songs:</h3>
             </div>
         );
     });
 
     return (
-        <div className= "profileInfo">
-            {songNodes}
+        <div className="profileInfo">
+            {profileInfo}
         </div>
     );
-
-    /* //const profileNodes = props.accounts.map(function(accounts){
-        return (
-            <div key={accounts._id} className="accounts">
-                <img src="/assets/img/face.png" alt= "domo face" className="domoFaceProfile"/>
-                <h3 className="profileName"> Name: {accounts.profileName}</h3>
-                <br/>
-                <br/>
-                <h3 className="profileUsername"> Username: {accounts.username}</h3>
-                <br/>
-                <br/>
-                <h3 className="profileNotes"> Notes: </h3>
-            </div>
-            <div className="accounts">
-                <img src="/assets/img/profile-notes.png" alt= "domo face" className="domoFaceProfile"/>
-                <h3 className="profileName"> Name: {{accounts.name}}</h3>
-                <h3 className="profileUsername"> Username: {{accounts.age}}</h3>
-            </div>
-        );
-    //}); */
-    
-
-    /* return (
-        <div className= "listings">
-            {profileNodes}
-        </div>
-    ); */
 };
 
+/* Displays songs to the screen */
 const SongList = function (props) {
-    //reality check - but should never happen
-    if (props.users.length === 0) {
+    //no songs added to the data
+    if (props.songs.length === 0) {
         return (
             <div className="songList">
                 <h3 className="emptySong">No Songs Avaliable</h3>
@@ -59,12 +37,27 @@ const SongList = function (props) {
         );
     }
 
+    //if there is data, display onto screen
     const songNodes = props.songs.map(function (song) {
+        console.dir(song)
+        let today = new Date(song.createdDate);
+        let formattedDate = today.toLocaleDateString(
+            'en-gb',
+            {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                timeZone: 'utc'
+            }
+        );
+
         return (
             <div key={song._id} className="song">
                 <h3 className="songName"> Name: {song.name}</h3>
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
-                <h3 className="songUserName">User: {song.user}</h3>
+                <h3 className="songRating"> Rating: {song.rating}/5</h3>
+                <h3 className="songGenre"> Genre: {song.genre}</h3>
+                <h3 className="songDate"> Date Added: {formattedDate}</h3>
             </div>
         );
     });
@@ -76,13 +69,19 @@ const SongList = function (props) {
     );
 };
 
+
 const loadSongsFromServer = () => {
     /* sendAjax('GET', '/myPage', null, (data) => {
         ReactDOM.render(
             <SongList songs={data.songs} />, document.querySelector("#songs")
         );
     }); */
-    sendAjax('GET', '/allSongs', null, (data) => {
+    sendAjax('GET', '/getSongs', null, (data) => {
+        ReactDOM.render(
+            <ProfileForm songs={data.songs} />, document.querySelector("#content")
+        );
+    });
+    sendAjax('GET', '/getSongs', null, (data) => {
         ReactDOM.render(
             <SongList songs={data.songs} />, document.querySelector("#songs")
         );
@@ -92,13 +91,17 @@ const loadSongsFromServer = () => {
 //attach events to page buttons
 const setup = (csrf) => {
     ReactDOM.render(
-        <ProfileForm csrf={csrf} />, document.querySelector("#content")
+        <ProfileForm songs={[]} />, document.querySelector("#content")
     );
+    //might need to switch to this?
     /* ReactDOM.render(
-        <SongList songs={[]} />, document.querySelector("#songs")
+        <ProfileForm songs={data.songs} />, document.querySelector("#content")
     ); */
-    //loadSongsFromServer();
-    //createLoginWindow(csrf); //default window
+
+    ReactDOM.render(
+        <SongList songs={[]} />, document.querySelector("#songs")
+    );
+    loadSongsFromServer();
 };
 
 //allow us to get CSRF token for new submissions

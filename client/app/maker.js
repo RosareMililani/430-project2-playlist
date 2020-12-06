@@ -16,69 +16,6 @@ const handleSong = (e) => {
     return false;
 };
 
-// handles the update function for the password change
-const handleUpdate = (e) => {
-    e.preventDefault();
-
-    $("#postMessage").animate({ width: 'hide' }, 350);
-
-    if ($("#pass").val() == '' || $("#pass2").val() == '') {
-        handleError("All fields are required to change password");
-        return false;
-    }
-
-    if ($("#pass").val() !== $("#pass2").val()) {
-        handleError("Passwords do not match");
-        return false;
-    }
-    alert("You have changed your password");
-
-    sendAjax('POST', $("#settingsForm").attr("action"), $("#settingsForm").serialize(), redirect);
-
-    return false;
-};
-
-const updatePassword = (request, response) => {
-    const req = request;
-    const res = response;
-
-    // force cast to strings to cover some security flaws
-    req.body.pass = `${req.body.pass}`;
-    req.body.pass2 = `${req.body.pass2}`;
-
-    // need to enter twice
-    if (!req.body.pass || !req.body.pass2) {
-        return res.status(400).json({
-            error: 'All fields are required',
-        });
-    }
-
-    // if passwords dont match
-    if (req.body.pass !== req.body.pass2) {
-        return res.status(400).json({
-            error: 'Passwords do not match',
-        });
-    }
-
-    return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
-        Account.AccountModel.updateOne({ _id: req.session.account._id }, {
-            username: req.session.account.username,
-            salt,
-            password: hash,
-        }, (err) => {
-            if (err) {
-                return res.status(400).json({
-                    error: 'An error occured',
-                });
-            }
-            return res.status(200);
-        });
-        res.json({
-            redirect: '/maker',
-        });
-    });
-};
-
 const SongForm = (props) => {
     return (
         <form id="songForm"
@@ -100,6 +37,7 @@ const SongForm = (props) => {
                 <option value="Classical">Classical</option>
                 <option value="Country">Country</option>
                 <option value="Dance">Dance</option>
+                <option value="Disco">Disco</option>
                 <option value="EDM">EDM</option>
                 <option value="Hip-hop">Hip-hop</option>
                 <option value="Indie">Indie</option>
@@ -122,30 +60,6 @@ const SongForm = (props) => {
             <input className="makeSongSubmit" type="submit" value="Add Song!" />
             <input className="resetSong" type="reset" value="Clear!" />
             <label className="displayError">Message: </label>
-        </form>
-    );
-};
-
-//settings form to change their password
-const SettingsForm = (props) => {
-    return (
-        <form id="settingsForm"
-            onSubmit={handleUpdate}
-            name="settingsForm"
-            action="/updatePassword"
-            method="POST"
-            className="settingsForm"
-        >
-            <div className="container">
-                <label className="passwordChange">Change Password:</label>
-                <label htmlFor="newpass">New Password: </label>
-                <input id="newpass" type="password" name="newpass" placeholder="New password" />
-                <label htmlFor="newpass2">Confirm Password: </label>
-                <input id="newpass2" type="password" name="newpass2" placeholder="Confirm password" />
-
-                <input type="hidden" name="_csrf" value={props.csrf} />
-                <input className="formSubmit" type="submit" value="Update" />
-            </div>
         </form>
     );
 };
@@ -238,7 +152,7 @@ const createCreateWindow = (csrf) => {
     ); */
 }
 
-const createProfileWindow = (csrf) => {
+/* const createProfileWindow = (csrf) => {
     ReactDOM.render(
         <ProfileForm csrf={csrf} />, document.querySelector("#content")
     );
@@ -246,21 +160,21 @@ const createProfileWindow = (csrf) => {
     ReactDOM.render(
         <SongList songs={[]} />, document.querySelector("#songs")
     );
-}
+} */
 
-const createSettingWindow = (csrf) => {
+/* const createSettingWindow = (csrf) => {
     ReactDOM.render(
         <SettingsForm csrf={csrf} />, document.querySelector("#songs")
     );
-};
+}; */
 //render out SongForm to the page and render default SongsList
 //songs attribute of SongList is empty array - because we dont have 
 //  data yet, but will at least get the HTML onto the page while waiting 
 //  for server
 const setup = function (csrf) {
-    const createButton = document.querySelector("#createButton");
+    /* const createButton = document.querySelector("#createButton");
     const createProfileButton = document.querySelector("#myPageButton");
-    const settingButton = document.querySelector("#settingsButton");
+    //const settingButton = document.querySelector("#settingsButton");
 
     createButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -272,13 +186,21 @@ const setup = function (csrf) {
         e.preventDefault();
         createProfileWindow(csrf);
         return false;
-    });
+    }); */
 
-    settingButton.addEventListener("click", (e) => {
+    /* settingButton.addEventListener("click", (e) => {
         e.preventDefault();
         createSettingWindow(csrf);
         return false;
-    });
+    }); */
+
+    ReactDOM.render(
+        <SongForm csrf={csrf} />, document.querySelector("#makeSong")
+    );
+
+    ReactDOM.render(
+        <SongList songs={[]} />, document.querySelector("#songs")
+    );
 
     loadSongsFromServer();
 };

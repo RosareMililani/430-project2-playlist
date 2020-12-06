@@ -15,70 +15,6 @@ var handleSong = function handleSong(e) {
     loadSongsFromServer();
   });
   return false;
-}; // handles the update function for the password change
-
-
-var handleUpdate = function handleUpdate(e) {
-  e.preventDefault();
-  $("#postMessage").animate({
-    width: 'hide'
-  }, 350);
-
-  if ($("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("All fields are required to change password");
-    return false;
-  }
-
-  if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("Passwords do not match");
-    return false;
-  }
-
-  alert("You have changed your password");
-  sendAjax('POST', $("#settingsForm").attr("action"), $("#settingsForm").serialize(), redirect);
-  return false;
-};
-
-var updatePassword = function updatePassword(request, response) {
-  var req = request;
-  var res = response; // force cast to strings to cover some security flaws
-
-  req.body.pass = "".concat(req.body.pass);
-  req.body.pass2 = "".concat(req.body.pass2); // need to enter twice
-
-  if (!req.body.pass || !req.body.pass2) {
-    return res.status(400).json({
-      error: 'All fields are required'
-    });
-  } // if passwords dont match
-
-
-  if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({
-      error: 'Passwords do not match'
-    });
-  }
-
-  return Account.AccountModel.generateHash(req.body.pass, function (salt, hash) {
-    Account.AccountModel.updateOne({
-      _id: req.session.account._id
-    }, {
-      username: req.session.account.username,
-      salt: salt,
-      password: hash
-    }, function (err) {
-      if (err) {
-        return res.status(400).json({
-          error: 'An error occured'
-        });
-      }
-
-      return res.status(200);
-    });
-    res.json({
-      redirect: '/maker'
-    });
-  });
 };
 
 var SongForm = function SongForm(props) {
@@ -128,6 +64,8 @@ var SongForm = function SongForm(props) {
   }, "Country"), /*#__PURE__*/React.createElement("option", {
     value: "Dance"
   }, "Dance"), /*#__PURE__*/React.createElement("option", {
+    value: "Disco"
+  }, "Disco"), /*#__PURE__*/React.createElement("option", {
     value: "EDM"
   }, "EDM"), /*#__PURE__*/React.createElement("option", {
     value: "Hip-hop"
@@ -177,44 +115,6 @@ var SongForm = function SongForm(props) {
   }), /*#__PURE__*/React.createElement("label", {
     className: "displayError"
   }, "Message: "));
-}; //settings form to change their password
-
-
-var SettingsForm = function SettingsForm(props) {
-  return /*#__PURE__*/React.createElement("form", {
-    id: "settingsForm",
-    onSubmit: handleUpdate,
-    name: "settingsForm",
-    action: "/updatePassword",
-    method: "POST",
-    className: "settingsForm"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "passwordChange"
-  }, "Change Password:"), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "newpass"
-  }, "New Password: "), /*#__PURE__*/React.createElement("input", {
-    id: "newpass",
-    type: "password",
-    name: "newpass",
-    placeholder: "New password"
-  }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "newpass2"
-  }, "Confirm Password: "), /*#__PURE__*/React.createElement("input", {
-    id: "newpass2",
-    type: "password",
-    name: "newpass2",
-    placeholder: "Confirm password"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "hidden",
-    name: "_csrf",
-    value: props.csrf
-  }), /*#__PURE__*/React.createElement("input", {
-    className: "formSubmit",
-    type: "submit",
-    value: "Update"
-  })));
 };
 
 var ProfileForm = function ProfileForm(props) {
@@ -302,45 +202,53 @@ var createCreateWindow = function createCreateWindow(csrf) {
       <SongList songs={[]} />, document.querySelector("#songs")
   ); */
 };
+/* const createProfileWindow = (csrf) => {
+    ReactDOM.render(
+        <ProfileForm csrf={csrf} />, document.querySelector("#content")
+    );
 
-var createProfileWindow = function createProfileWindow(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
-    csrf: csrf
-  }), document.querySelector("#content"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
-    songs: []
-  }), document.querySelector("#songs"));
-};
+    ReactDOM.render(
+        <SongList songs={[]} />, document.querySelector("#songs")
+    );
+} */
 
-var createSettingWindow = function createSettingWindow(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(SettingsForm, {
-    csrf: csrf
-  }), document.querySelector("#songs"));
-}; //render out SongForm to the page and render default SongsList
+/* const createSettingWindow = (csrf) => {
+    ReactDOM.render(
+        <SettingsForm csrf={csrf} />, document.querySelector("#songs")
+    );
+}; */
+//render out SongForm to the page and render default SongsList
 //songs attribute of SongList is empty array - because we dont have 
 //  data yet, but will at least get the HTML onto the page while waiting 
 //  for server
 
 
 var setup = function setup(csrf) {
-  var createButton = document.querySelector("#createButton");
-  var createProfileButton = document.querySelector("#myPageButton");
-  var settingButton = document.querySelector("#settingsButton");
-  createButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createCreateWindow(csrf);
-    return false;
+  /* const createButton = document.querySelector("#createButton");
+  const createProfileButton = document.querySelector("#myPageButton");
+  //const settingButton = document.querySelector("#settingsButton");
+    createButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      createCreateWindow(csrf);
+      return false;
   });
-  createProfileButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createProfileWindow(csrf);
-    return false;
-  });
-  settingButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createSettingWindow(csrf);
-    return false;
-  });
+    createProfileButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      createProfileWindow(csrf);
+      return false;
+  }); */
+
+  /* settingButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      createSettingWindow(csrf);
+      return false;
+  }); */
+  ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
+    csrf: csrf
+  }), document.querySelector("#makeSong"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+    songs: []
+  }), document.querySelector("#songs"));
   loadSongsFromServer();
 }; //allow us to get CSRF token for new submissions
 

@@ -1,70 +1,58 @@
 "use strict";
 
-//JSX is a cutsom syntax provided by React that lets you create HTML-like 
-//  objects in JS as valid syntax
-//JSX is secured against unsafe input and has a 'this' context so each object
-//  made of it can have its own variable scope
 var ProfileForm = function ProfileForm(props) {
-  var songNodes = props.songs.map(function (song) {
-    //console.dir(song)
+  if (props.songs.length === 0) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "profileInfo"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "emptySong"
+    }, "No Info Avaliable"));
+  }
+
+  var profileInfo = props.songs.map(function (song) {
+    console.dir(song);
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "accounts"
     }, /*#__PURE__*/React.createElement("img", {
       src: "/assets/img/profile-notes.png",
-      alt: "domo face",
-      className: "domoFaceProfile"
+      alt: "image profile",
+      className: "imageProfile"
     }), /*#__PURE__*/React.createElement("h3", {
       className: "profileName"
-    }, " Name: ", song.user), /*#__PURE__*/React.createElement("h3", {
+    }, " Username: ", song.user), /*#__PURE__*/React.createElement("h3", {
       className: "profileUsername"
-    }, " Username: ", song.personName), /*#__PURE__*/React.createElement("input", {
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }));
+    }, " Name: ", song.personName), /*#__PURE__*/React.createElement("h3", {
+      className: "songLabel"
+    }, "My Added Songs:"));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "profileInfo"
-  }, songNodes);
-  /* //const profileNodes = props.accounts.map(function(accounts){
-      return (
-          <div key={accounts._id} className="accounts">
-              <img src="/assets/img/face.png" alt= "domo face" className="domoFaceProfile"/>
-              <h3 className="profileName"> Name: {accounts.profileName}</h3>
-              <br/>
-              <br/>
-              <h3 className="profileUsername"> Username: {accounts.username}</h3>
-              <br/>
-              <br/>
-              <h3 className="profileNotes"> Notes: </h3>
-          </div>
-          <div className="accounts">
-              <img src="/assets/img/profile-notes.png" alt= "domo face" className="domoFaceProfile"/>
-              <h3 className="profileName"> Name: {{accounts.name}}</h3>
-              <h3 className="profileUsername"> Username: {{accounts.age}}</h3>
-          </div>
-      );
-  //}); */
-
-  /* return (
-      <div className= "listings">
-          {profileNodes}
-      </div>
-  ); */
+  }, profileInfo);
 };
+/* Displays songs to the screen */
+
 
 var SongList = function SongList(props) {
-  //reality check - but should never happen
-  if (props.users.length === 0) {
+  //no songs added to the data
+  if (props.songs.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "songList"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptySong"
     }, "No Songs Avaliable"));
-  }
+  } //if there is data, display onto screen
+
 
   var songNodes = props.songs.map(function (song) {
+    console.dir(song);
+    var today = new Date(song.createdDate);
+    var formattedDate = today.toLocaleDateString('en-gb', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      timeZone: 'utc'
+    });
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "song"
@@ -73,8 +61,12 @@ var SongList = function SongList(props) {
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
       className: "songArtist"
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
-      className: "songUserName"
-    }, "User: ", song.user));
+      className: "songRating"
+    }, " Rating: ", song.rating, "/5"), /*#__PURE__*/React.createElement("h3", {
+      className: "songGenre"
+    }, " Genre: ", song.genre), /*#__PURE__*/React.createElement("h3", {
+      className: "songDate"
+    }, " Date Added: ", formattedDate));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
@@ -87,7 +79,12 @@ var loadSongsFromServer = function loadSongsFromServer() {
           <SongList songs={data.songs} />, document.querySelector("#songs")
       );
   }); */
-  sendAjax('GET', '/allSongs', null, function (data) {
+  sendAjax('GET', '/getSongs', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
+      songs: data.songs
+    }), document.querySelector("#content"));
+  });
+  sendAjax('GET', '/getSongs', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
       songs: data.songs
     }), document.querySelector("#songs"));
@@ -97,13 +94,17 @@ var loadSongsFromServer = function loadSongsFromServer() {
 
 var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(ProfileForm, {
-    csrf: csrf
-  }), document.querySelector("#content"));
+    songs: []
+  }), document.querySelector("#content")); //might need to switch to this?
+
   /* ReactDOM.render(
-      <SongList songs={[]} />, document.querySelector("#songs")
+      <ProfileForm songs={data.songs} />, document.querySelector("#content")
   ); */
-  //loadSongsFromServer();
-  //createLoginWindow(csrf); //default window
+
+  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
+    songs: []
+  }), document.querySelector("#songs"));
+  loadSongsFromServer();
 }; //allow us to get CSRF token for new submissions
 
 

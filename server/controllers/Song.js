@@ -26,6 +26,19 @@ const songPage = (req, res) => {
   });
 };
 
+// lead to info page
+const myPage = (req, res) => {
+  Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    return res.render('myPage', { csrfToken: req.csrfToken(), songs: docs });
+  });
+  //res.render('myPage', { csrfToken: req.csrfToken() });
+};
+
 const makeSong = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating
     || !req.body.genre || !req.body.favorite) {
@@ -71,6 +84,9 @@ const userSongs = (req, res) => {
   const songData = {
     name: req.body.name,
     artist: req.body.artist,
+    rating: req.body.rating,
+    genre: req.body.genre,
+    favorite: req.body.favorite,
     owner: req.session.account._id,
     user: req.session.account.username,
   };
@@ -127,7 +143,9 @@ const getAllSongs = (request, response) => {
 
 module.exports.makerPage = makerPage;
 module.exports.songPage = songPage;
+module.exports.myPage = myPage;
 module.exports.getSongs = getSongs;
 module.exports.make = makeSong;
+module.exports.mySongs = userSongs;
 module.exports.song = userSongs;
 module.exports.getAllSongs = getAllSongs;

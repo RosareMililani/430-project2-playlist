@@ -11,10 +11,14 @@ const signUpPage = (req, res) => {
   res.render('signup', { csrfToken: req.csrfToken() });
 };
 
-// lead to info page
+const settingsPage = (req, res) => {
+  res.render('settings', { csrfToken: req.csrfToken() });
+};
+
+/* // lead to info page
 const myPage = (req, res) => {
   res.render('myPage', { csrfToken: req.csrfToken() });
-};
+}; */
 
 // remove a user session - on logout
 const logout = (req, res) => {
@@ -150,8 +154,9 @@ const getToken = (request, response) => {
 
 module.exports.loginPage = loginPage;
 module.exports.signUpPage = signUpPage;
+module.exports.settingsPage = settingsPage;
 module.exports.login = login;
-module.exports.myPage = myPage;
+//module.exports.myPage = myPage;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
