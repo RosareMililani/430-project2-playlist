@@ -114,7 +114,7 @@ const SongList = function (props) {
             <div key={song._id} className="song">
                 {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" /> */}
                 <h3 className="songName"> Name: {song.name}</h3>
-                <h3 className="songUserName">User: {song.user}</h3>
+                {/* <h3 className="songUserName">User: {song.user}</h3> */}
                 {/* <h3 className="songProfileName">Profile: {song.personName}</h3> */}
                 <h3 className="songArtist"> Artist: {song.artist}</h3>
                 <h3 className="songRating"> Rating: {song.rating}/5</h3>

@@ -152,20 +152,7 @@ var SongList = function SongList(props) {
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptySong"
     }, "No Songs Avaliable"));
-  }
-  /* let now = new Date();
-  let formattedDate = now.toLocaleDateString(
-      'en-gb',
-      {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          timeZone: 'utc'
-      }
-  );
-  console.log(now);
-  console.log(formattedDate); */
-  //if there is data, display onto screen
+  } //if there is data, display onto screen
 
 
   var songNodes = props.songs.map(function (song) {
@@ -183,8 +170,6 @@ var SongList = function SongList(props) {
     }, /*#__PURE__*/React.createElement("h3", {
       className: "songName"
     }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
-      className: "songUserName"
-    }, "User: ", song.user), /*#__PURE__*/React.createElement("h3", {
       className: "songArtist"
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
       className: "songRating"

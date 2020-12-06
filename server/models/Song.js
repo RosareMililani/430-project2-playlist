@@ -70,7 +70,7 @@ const SongSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-//console.log(formattedDate);
+// console.log(formattedDate);
 
 SongSchema.statics.toAPI = (doc) => ({
   name: doc.name,
@@ -98,7 +98,6 @@ SongSchema.statics.findAll = (callback) => {
 
   return SongModel.find(search).select('name artist user').lean().exec(callback);
 };
-
 
 SongModel = mongoose.model('Song', SongSchema);
 
