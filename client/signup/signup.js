@@ -1,52 +1,54 @@
 //called when users attempt to login by clicking the login button
 //send AJAX request to our login POST url
-const handleLogin = (e) => {
+const handleSignup = (e) => {
     e.preventDefault();
 
     $("#songMessage").animate({ width: 'hide' }, 350);
 
-    if ($("#user").val() == '' || $("#pass").val() == '') {
-        handleError("Oops! Username or password is empty");
+    if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+        handleError("Oops! All fields are required");
         return false;
     }
 
-    console.log($("input[name=_csrf]").val());
+    if ($("#pass").val() !== $("#pass2").val()) {
+        handleError("Oh no! Passwords do not match");
+        return false;
+    }
 
-    sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
+    sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
 
     return false;
 }
 
-//JSX is a cutsom syntax provided by React that lets you create HTML-like 
-//  objects in JS as valid syntax
-//JSX is secured against unsafe input and has a 'this' context so each object
-//  made of it can have its own variable scope
-const LoginWindow = (props) => {
+//alows to quickly switch between the signup and login paes without actually
+//  changing the web page
+const SignupWindow = (props) => {
     return (
-        <form id="loginForm" name="loginForm"
-            onSubmit={handleLogin}
-            action="/login"
+        <form id="signupForm" name="signupForm"
+            onSubmit={handleSignup}
+            action="/signup"
             method="POST"
-            className="mainForm"
+            className="mainSignForm"
         >
             <div className="container">
-                <label className="loginLabel">Login</label>
+                <label className="signupLabel">Sign Up</label>
                 <label htmlFor="username">Username: </label>
                 <input id="user" type="text" name="username" placeholder="username" />
                 <label htmlFor="pass">Password: </label>
                 <input id="pass" type="password" name="pass" placeholder="password" />
+                <label htmlFor="pass2">Password: </label>
+                <input id="pass2" type="password" name="pass2" placeholder="retype password" />
                 <input type="hidden" name="_csrf" value={props.csrf} />
-                <input className="formSubmit" type="submit" value="Sign in" />
+                <input className="formSubmit" type="submit" value="Sign Up" />
             </div>
         </form>
-
     );
 };
 
-//render login page when clicked on / logged out of account
+//setup the signup window when clicked on
 const setup = (csrf) => {
     ReactDOM.render(
-        <LoginWindow csrf={csrf} />,
+        <SignupWindow csrf={csrf} />,
         document.querySelector("#content")
     );
 };

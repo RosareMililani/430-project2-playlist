@@ -2,39 +2,41 @@
 
 //called when users attempt to login by clicking the login button
 //send AJAX request to our login POST url
-var handleLogin = function handleLogin(e) {
+var handleSignup = function handleSignup(e) {
   e.preventDefault();
   $("#songMessage").animate({
     width: 'hide'
   }, 350);
 
-  if ($("#user").val() == '' || $("#pass").val() == '') {
-    handleError("Oops! Username or password is empty");
+  if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+    handleError("Oops! All fields are required");
     return false;
   }
 
-  console.log($("input[name=_csrf]").val());
-  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
+  if ($("#pass").val() !== $("#pass2").val()) {
+    handleError("Oh no! Passwords do not match");
+    return false;
+  }
+
+  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   return false;
-}; //JSX is a cutsom syntax provided by React that lets you create HTML-like 
-//  objects in JS as valid syntax
-//JSX is secured against unsafe input and has a 'this' context so each object
-//  made of it can have its own variable scope
+}; //alows to quickly switch between the signup and login paes without actually
+//  changing the web page
 
 
-var LoginWindow = function LoginWindow(props) {
+var SignupWindow = function SignupWindow(props) {
   return /*#__PURE__*/React.createElement("form", {
-    id: "loginForm",
-    name: "loginForm",
-    onSubmit: handleLogin,
-    action: "/login",
+    id: "signupForm",
+    name: "signupForm",
+    onSubmit: handleSignup,
+    action: "/signup",
     method: "POST",
-    className: "mainForm"
+    className: "mainSignForm"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("label", {
-    className: "loginLabel"
-  }, "Login"), /*#__PURE__*/React.createElement("label", {
+    className: "signupLabel"
+  }, "Sign Up"), /*#__PURE__*/React.createElement("label", {
     htmlFor: "username"
   }, "Username: "), /*#__PURE__*/React.createElement("input", {
     id: "user",
@@ -48,6 +50,13 @@ var LoginWindow = function LoginWindow(props) {
     type: "password",
     name: "pass",
     placeholder: "password"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "pass2"
+  }, "Password: "), /*#__PURE__*/React.createElement("input", {
+    id: "pass2",
+    type: "password",
+    name: "pass2",
+    placeholder: "retype password"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
@@ -55,13 +64,13 @@ var LoginWindow = function LoginWindow(props) {
   }), /*#__PURE__*/React.createElement("input", {
     className: "formSubmit",
     type: "submit",
-    value: "Sign in"
+    value: "Sign Up"
   })));
-}; //render login page when clicked on / logged out of account
+}; //setup the signup window when clicked on
 
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(SignupWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
 }; //since we are never reloading the page now, we need to make requests
