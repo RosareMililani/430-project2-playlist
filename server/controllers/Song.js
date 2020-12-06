@@ -25,7 +25,6 @@ const songPage = (req, res) => {
   });
 };
 
-
 // lead to info page
 const myPage = (req, res) => {
   Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
@@ -107,7 +106,7 @@ const userSongs = (req, res) => {
   return songPromise;
 };
 
-const allAvaiableSongs = (req, res) => {
+/* const allAvaiableSongs = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating
     || !req.body.genre || !req.body.favorite) {
     return res.status(400).json({ error: 'Oops! All fields are required' });
@@ -139,7 +138,7 @@ const allAvaiableSongs = (req, res) => {
   });
 
   return songPromise;
-};
+}; */
 
 // get JSON responses of Songs for a user
 // allow our client app to update dynamically using React
