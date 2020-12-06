@@ -1,6 +1,6 @@
 const SongList = function (props) {
     //reality check - but should never happen
-    if (props.users.length === 0) {
+    if (props.songs.length === 0) {
         return (
             <div className="songList">
                 <h3 className="emptySong">No Songs Avaliable</h3>
@@ -24,6 +24,7 @@ const SongList = function (props) {
         </div>
     );
 };
+
 
 //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
@@ -53,8 +54,6 @@ const getToken = () => {
         setup(result.csrfToken);
     });
 };
-
-
 
 //page load - getToken() to get new CSRF token and setup React components
 $(document).ready(function () {

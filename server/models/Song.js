@@ -41,12 +41,6 @@ const SongSchema = new mongoose.Schema({
     required: true,
   },
 
-  /* playlist: {
-    type: String,
-    trim: true,
-    required: false,
-  }, */
-
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
@@ -77,7 +71,6 @@ SongSchema.statics.toAPI = (doc) => ({
   artist: doc.artist,
   rating: doc.rating,
   genre: doc.genre,
-  /* playlist: doc.playlist, */
   createdDate: doc.createdDate,
   /* owner:doc.owner, */
   user: doc.user,

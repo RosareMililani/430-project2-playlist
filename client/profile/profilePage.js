@@ -71,11 +71,6 @@ const SongList = function (props) {
 
 
 const loadSongsFromServer = () => {
-    /* sendAjax('GET', '/myPage', null, (data) => {
-        ReactDOM.render(
-            <SongList songs={data.songs} />, document.querySelector("#songs")
-        );
-    }); */
     sendAjax('GET', '/getSongs', null, (data) => {
         ReactDOM.render(
             <ProfileForm songs={data.songs} />, document.querySelector("#content")

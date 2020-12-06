@@ -19,8 +19,8 @@ const router = (app) => {
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
-  app.get('/songs', mid.requiresLogin, controllers.Song.songPage);
-  app.post('/songs', mid.requiresLogin, controllers.Song.song);
+  app.get('/songPage', mid.requiresLogin, controllers.Song.songPage);
+  app.post('/songPage', mid.requiresLogin, controllers.Song.allSong);
 
   app.get('/maker', mid.requiresLogin, controllers.Song.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Song.make);

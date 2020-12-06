@@ -2,7 +2,7 @@
 
 var SongList = function SongList(props) {
   //reality check - but should never happen
-  if (props.users.length === 0) {
+  if (props.songs.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "songList"
     }, /*#__PURE__*/React.createElement("h3", {

@@ -11,8 +11,7 @@ var handleSong = function handleSong(e) {
     return false;
   }
 
-  sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
-    loadSongsFromServer();
+  sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {//loadSongsFromServer();
   });
   return false;
 };
@@ -116,106 +115,60 @@ var SongForm = function SongForm(props) {
     className: "displayError"
   }, "Message: "));
 };
-
-var ProfileForm = function ProfileForm(props) {
-  var profileInfo = props.songs.map(function (song) {
-    //console.dir(song)
-    return /*#__PURE__*/React.createElement("div", {
-      key: song._id,
-      className: "accounts"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/profile-notes.png",
-      alt: "domo face",
-      className: "domoFaceProfile"
-    }), /*#__PURE__*/React.createElement("h3", {
-      className: "profileName"
-    }, " Name: ", song.user), /*#__PURE__*/React.createElement("h3", {
-      className: "profileUsername"
-    }, " Username: ", song.personName), /*#__PURE__*/React.createElement("input", {
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }));
-  });
-  return /*#__PURE__*/React.createElement("div", {
-    className: "content"
-  }, profileInfo);
-};
 /* Displays songs to the screen */
 
+/* const SongList = function (props) {
+    //no songs added to the data
+    if (props.songs.length === 0) {
+        return (
+            <div className="songList">
+                <h3 className="emptySong">No Songs Avaliable</h3>
+            </div>
+        );
+    }
 
-var SongList = function SongList(props) {
-  //no songs added to the data
-  if (props.songs.length === 0) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "songList"
-    }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptySong"
-    }, "No Songs Avaliable"));
-  } //if there is data, display onto screen
+    //if there is data, display onto screen
+    const songNodes = props.songs.map(function (song) {
+        console.dir(song)
+        let today = new Date(song.createdDate);
+        let formattedDate = today.toLocaleDateString(
+            'en-gb',
+            {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                timeZone: 'utc'
+            }
+        );
 
-
-  var songNodes = props.songs.map(function (song) {
-    console.dir(song);
-    var today = new Date(song.createdDate);
-    var formattedDate = today.toLocaleDateString('en-gb', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      timeZone: 'utc'
+        return (
+            <div key={song._id} className="song">
+                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
+                <h3 className="songName"> Name: {song.name}</h3>
+                <h3 className="songUserName">User: {song.user}</h3>
+                <h3 className="songArtist"> Artist: {song.artist}</h3>
+                <h3 className="songRating"> Rating: {song.rating}/5</h3>
+                <h3 className="songGenre"> Genre: {song.genre}</h3>
+                <h3 className="songDate"> Date Added: {formattedDate}</h3>
+            </div>
+        );
     });
-    return /*#__PURE__*/React.createElement("div", {
-      key: song._id,
-      className: "song"
-    }, /*#__PURE__*/React.createElement("h3", {
-      className: "songName"
-    }, " Name: ", song.name), /*#__PURE__*/React.createElement("h3", {
-      className: "songArtist"
-    }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
-      className: "songRating"
-    }, " Rating: ", song.rating, "/5"), /*#__PURE__*/React.createElement("h3", {
-      className: "songGenre"
-    }, " Genre: ", song.genre), /*#__PURE__*/React.createElement("h3", {
-      className: "songDate"
-    }, " Date Added: ", formattedDate));
-  });
-  return /*#__PURE__*/React.createElement("div", {
-    className: "songList"
-  }, songNodes);
-}; //grabs songs from the server and render a SongsList
+
+    return (
+        <div className="songList">
+            {songNodes}
+        </div>
+    );
+}; */
+//grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 
-
-var loadSongsFromServer = function loadSongsFromServer() {
-  sendAjax('GET', '/getSongs', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
-      songs: data.songs
-    }), document.querySelector("#songs"));
-  });
-};
-
-var createCreateWindow = function createCreateWindow(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
-    csrf: csrf
-  }), document.querySelector("#makeSong"));
-  /* ReactDOM.render(
-      <SongList songs={[]} />, document.querySelector("#songs")
-  ); */
-};
-/* const createProfileWindow = (csrf) => {
-    ReactDOM.render(
-        <ProfileForm csrf={csrf} />, document.querySelector("#content")
-    );
-
-    ReactDOM.render(
-        <SongList songs={[]} />, document.querySelector("#songs")
-    );
-} */
-
-/* const createSettingWindow = (csrf) => {
-    ReactDOM.render(
-        <SettingsForm csrf={csrf} />, document.querySelector("#songs")
-    );
+/* const loadSongsFromServer = () => {
+    sendAjax('GET', '/getSongs', null, (data) => {
+        ReactDOM.render(
+            <SongList songs={data.songs} />, document.querySelector("#songs")
+        );
+    });
 }; */
 //render out SongForm to the page and render default SongsList
 //songs attribute of SongList is empty array - because we dont have 
@@ -224,32 +177,13 @@ var createCreateWindow = function createCreateWindow(csrf) {
 
 
 var setup = function setup(csrf) {
-  /* const createButton = document.querySelector("#createButton");
-  const createProfileButton = document.querySelector("#myPageButton");
-  //const settingButton = document.querySelector("#settingsButton");
-    createButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      createCreateWindow(csrf);
-      return false;
-  });
-    createProfileButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      createProfileWindow(csrf);
-      return false;
-  }); */
-
-  /* settingButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      createSettingWindow(csrf);
-      return false;
-  }); */
   ReactDOM.render( /*#__PURE__*/React.createElement(SongForm, {
     csrf: csrf
   }), document.querySelector("#makeSong"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(SongList, {
-    songs: []
-  }), document.querySelector("#songs"));
-  loadSongsFromServer();
+  /* ReactDOM.render(
+      <SongList songs={[]} />, document.querySelector("#songs")
+  );
+    loadSongsFromServer(); */
 }; //allow us to get CSRF token for new submissions
 
 

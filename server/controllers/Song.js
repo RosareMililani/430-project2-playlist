@@ -15,16 +15,16 @@ const makerPage = (req, res) => {
 };
 
 const songPage = (req, res) => {
-  // res.render('app');
   Song.SongModel.findAll((err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
-    return res.render('app', { csrfToken: req.csrfToken(), songs: docs });
+    return res.render('songPage', { csrfToken: req.csrfToken(), songs: docs });
   });
 };
+
 
 // lead to info page
 const myPage = (req, res) => {
@@ -36,7 +36,6 @@ const myPage = (req, res) => {
 
     return res.render('myPage', { csrfToken: req.csrfToken(), songs: docs });
   });
-  //res.render('myPage', { csrfToken: req.csrfToken() });
 };
 
 const makeSong = (req, res) => {
@@ -51,7 +50,6 @@ const makeSong = (req, res) => {
     rating: req.body.rating,
     genre: req.body.genre,
     favorite: req.body.favorite,
-    /* playlist: req.body.playlist, */
     owner: req.session.account._id,
     user: req.session.account.username,
     personName: req.session.account.profileName,
@@ -109,6 +107,40 @@ const userSongs = (req, res) => {
   return songPromise;
 };
 
+const allAvaiableSongs = (req, res) => {
+  if (!req.body.name || !req.body.artist || !req.body.rating
+    || !req.body.genre || !req.body.favorite) {
+    return res.status(400).json({ error: 'Oops! All fields are required' });
+  }
+
+  const songData = {
+    name: req.body.name,
+    artist: req.body.artist,
+    rating: req.body.rating,
+    genre: req.body.genre,
+    favorite: req.body.favorite,
+    owner: req.session.account._id,
+    user: req.session.account.username,
+  };
+
+  const newSong = new Song.SongModel(songData);
+
+  const songPromise = newSong.save();
+
+  songPromise.then(() => res.json({ redirect: '/allUserSongs' }));
+
+  songPromise.catch((err) => {
+    console.log(err);
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'Song already exists' });
+    }
+
+    return res.status(400).json({ error: 'An error occured' });
+  });
+
+  return songPromise;
+};
+
 // get JSON responses of Songs for a user
 // allow our client app to update dynamically using React
 // app will update without changing pages, dynamically grab updates from the server
@@ -145,7 +177,8 @@ module.exports.makerPage = makerPage;
 module.exports.songPage = songPage;
 module.exports.myPage = myPage;
 module.exports.getSongs = getSongs;
+module.exports.getAllSongs = getAllSongs;
 module.exports.make = makeSong;
 module.exports.mySongs = userSongs;
 module.exports.song = userSongs;
-module.exports.getAllSongs = getAllSongs;
+module.exports.allSong = makeSong;
