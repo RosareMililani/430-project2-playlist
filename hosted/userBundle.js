@@ -15,7 +15,7 @@ var SongList = function SongList(props) {
       key: song._id,
       className: "song"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/favorite-note.png",
+      src: song.image,
       alt: "music image",
       className: "musicImage"
     }), /*#__PURE__*/React.createElement("h3", {

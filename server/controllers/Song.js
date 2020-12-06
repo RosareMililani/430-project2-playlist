@@ -50,7 +50,7 @@ const myPage = (req, res) => {
 
 const makeSong = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating
-    || !req.body.genre || !req.body.favorite) {
+    || !req.body.genre || !req.body.image) {
     return res.status(400).json({ error: 'Oops! All fields are required' });
   }
 
@@ -59,7 +59,8 @@ const makeSong = (req, res) => {
     artist: req.body.artist,
     rating: req.body.rating,
     genre: req.body.genre,
-    favorite: req.body.favorite,
+    /* favorite: req.body.favorite, */
+    image: req.body.image,
     owner: req.session.account._id,
     user: req.session.account.username,
   };
@@ -84,7 +85,7 @@ const makeSong = (req, res) => {
 
 const userSongs = (req, res) => {
   if (!req.body.name || !req.body.artist || !req.body.rating
-    || !req.body.genre || !req.body.favorite) {
+    || !req.body.genre || !req.body.image) {
     return res.status(400).json({ error: 'Oops! All fields are required' });
   }
 
@@ -93,7 +94,8 @@ const userSongs = (req, res) => {
     artist: req.body.artist,
     rating: req.body.rating,
     genre: req.body.genre,
-    favorite: req.body.favorite,
+    /* favorite: req.body.favorite, */
+    image: req.body.image,
     owner: req.session.account._id,
     user: req.session.account.username,
   };
@@ -116,40 +118,6 @@ const userSongs = (req, res) => {
   return songPromise;
 };
 
-/* const allAvaiableSongs = (req, res) => {
-  if (!req.body.name || !req.body.artist || !req.body.rating
-    || !req.body.genre || !req.body.favorite) {
-    return res.status(400).json({ error: 'Oops! All fields are required' });
-  }
-
-  const songData = {
-    name: req.body.name,
-    artist: req.body.artist,
-    rating: req.body.rating,
-    genre: req.body.genre,
-    favorite: req.body.favorite,
-    owner: req.session.account._id,
-    user: req.session.account.username,
-  };
-
-  const newSong = new Song.SongModel(songData);
-
-  const songPromise = newSong.save();
-
-  songPromise.then(() => res.json({ redirect: '/allUserSongs' }));
-
-  songPromise.catch((err) => {
-    console.log(err);
-    if (err.code === 11000) {
-      return res.status(400).json({ error: 'Song already exists' });
-    }
-
-    return res.status(400).json({ error: 'An error occured' });
-  });
-
-  return songPromise;
-}; */
-
 // get JSON responses of Songs for a user
 // allow our client app to update dynamically using React
 // app will update without changing pages, dynamically grab updates from the server
@@ -168,6 +136,7 @@ const getSongs = (request, response) => {
   });
 };
 
+// grabs all songs that are added by any user
 const getAllSongs = (request, response) => {
   // const req = request;
   const res = response;

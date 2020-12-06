@@ -4,7 +4,7 @@ const handleSong = (e) => {
     $("#songMessage").animate({ width: 'hide' }, 350);
 
     if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' ||
-        $("#songGenre").val() == '' || $("#songFavorite").val() == '') {
+        $("#songGenre").val() == '' || $("#songImage").val() == '') {
         handleError("Oops! All fields are required");
         return false;
     }
@@ -50,11 +50,12 @@ const SongForm = (props) => {
                 <option value="Rock">Rock</option>
                 <option value="Other">Other</option>
             </select>
-            <label htmlFor="favorite">Favorite: </label>
-            <select id="songFavorite" type="dropdown" name="favorite" >
+            <label htmlFor="image">Image: </label>
+            <select id="songImage" type="dropdown" name="image" >
                 <option value="" hidden> -- Select One --</option>
-                <option value="favorite">Favorite</option>
-                <option value="dontFavorite">Don't Favorite</option>
+                <option value="/assets/img/profile-notes.png">Profile Notes</option>
+                <option value="/assets/img/pixel-music.png">Pixel Music</option>
+                <option value="/assets/img/favorite-note.png">Favorite Note</option>
             </select>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeSongSubmit" type="submit" value="Add Song!" />

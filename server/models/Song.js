@@ -36,7 +36,7 @@ const SongSchema = new mongoose.Schema({
     required: true,
   },
 
-  favorite: {
+  image: {
     type: String,
     required: true,
   },
@@ -64,6 +64,7 @@ SongSchema.statics.toAPI = (doc) => ({
   artist: doc.artist,
   rating: doc.rating,
   genre: doc.genre,
+  image: doc.image,
   createdDate: doc.createdDate,
   user: doc.user,
 });
@@ -73,14 +74,14 @@ SongSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return SongModel.find(search).select('name artist rating genre favorite createdDate user').lean().exec(callback);
+  return SongModel.find(search).select('name artist rating genre image createdDate user').lean().exec(callback);
 };
 
 SongSchema.statics.findAll = (callback) => {
   const search = {
   };
 
-  return SongModel.find(search).select('name artist user').lean().exec(callback);
+  return SongModel.find(search).select('name artist user image').lean().exec(callback);
 };
 
 SongModel = mongoose.model('Song', SongSchema);

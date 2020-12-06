@@ -6,7 +6,7 @@ var handleSong = function handleSong(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '' || $("#songFavorite").val() == '') {
+  if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '' || $("#songImage").val() == '') {
     handleError("Oops! All fields are required");
     return false;
   }
@@ -87,19 +87,21 @@ var SongForm = function SongForm(props) {
   }, "Rock"), /*#__PURE__*/React.createElement("option", {
     value: "Other"
   }, "Other")), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "favorite"
-  }, "Favorite: "), /*#__PURE__*/React.createElement("select", {
-    id: "songFavorite",
+    htmlFor: "image"
+  }, "Image: "), /*#__PURE__*/React.createElement("select", {
+    id: "songImage",
     type: "dropdown",
-    name: "favorite"
+    name: "image"
   }, /*#__PURE__*/React.createElement("option", {
     value: "",
     hidden: true
   }, " -- Select One --"), /*#__PURE__*/React.createElement("option", {
-    value: "favorite"
-  }, "Favorite"), /*#__PURE__*/React.createElement("option", {
-    value: "dontFavorite"
-  }, "Don't Favorite")), /*#__PURE__*/React.createElement("input", {
+    value: "/assets/img/profile-notes.png"
+  }, "Profile Notes"), /*#__PURE__*/React.createElement("option", {
+    value: "/assets/img/pixel-music.png"
+  }, "Pixel Music"), /*#__PURE__*/React.createElement("option", {
+    value: "/assets/img/favorite-note.png"
+  }, "Favorite Note")), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
