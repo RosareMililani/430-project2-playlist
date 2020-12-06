@@ -51,11 +51,10 @@ const signup = (request, response) => {
 
   // cast to strings to cover up some security flaws
   req.body.username = `${req.body.username}`;
-  req.body.profileName = `${req.body.profileName}`;
   req.body.pass = `${req.body.pass}`;
   req.body.pass2 = `${req.body.pass2}`;
 
-  if (!req.body.username || !req.body.profileName || !req.body.pass || !req.body.pass2) {
+  if (!req.body.username || !req.body.pass || !req.body.pass2) {
     return res.status(400).json({ error: 'Oops! All fields are required' });
   }
 
@@ -128,7 +127,8 @@ const updatePassword = (request, response) => {
       return res.status(200);
     });
     res.json({
-      redirect: '/maker',
+      /* redirect: '/maker', */
+      redirect: '/settings',
     });
   });
 };
