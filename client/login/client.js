@@ -60,29 +60,10 @@ const LoginWindow = (props) => {
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <input className="formSubmit" type="submit" value="Sign in" />
             </div>
-            {/* <div class="navlink"><a href="/signup">Don't have an account? Click here!</a></div> */}
-            {/* <hr/>
-            <label className = "noAccountLabel">Don't Have An Account?</label>
-            <button type="submit" formAction= "/signup" value="Sign up"/> */}
         </form>
 
     );
 };
-
-const NoLogin = (props) => {
-    return (
-        <form id="nologin" name="nologin"
-            /* onSubmit = {handleNoLogin} */
-            action="/signup"
-            method="POST"
-            className="mainSignUpForm"
-        >
-            <label className="noAccountLabel">Don't Have An Account?</label>
-            <input type="hidden" name="_csrf" value={props.csrf} />
-            <input type="submit" value="Sign up" />
-        </form>
-    )
-}
 
 //alows to quickly switch between the signup and login paes without actually
 //  changing the web page
@@ -118,11 +99,6 @@ const createLoginWindow = (csrf) => {
         <LoginWindow csrf={csrf} />,
         document.querySelector("#content")
     );
-
-    /* ReactDOM.render(
-        <CreateAccountButton label="Create An Account" />,
-        document.querySelector("#createAccount")
-    ) */
 };
 
 //render a new sinup window that can handle react events

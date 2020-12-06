@@ -177,11 +177,16 @@ nav:nth-child(1) {
     background-color: #338acc;
 }
 
-.mainForm {
+.mainForm, .settingsForm{
     height: 300px;
     width: 350px;
     margin: 0 auto;
     font-size: 1.2em;
+}
+
+.settingsForm {
+    height: 450px;
+    width: 400px;
 }
 
 .mainSignForm {
@@ -198,6 +203,13 @@ nav:nth-child(1) {
     margin-top: 50%;
 }
 
+.settingsForm div {
+    border-style: dashed;
+    width: 450px;
+    height:270px;
+    margin-top: 50%;
+}
+
 .mainSignForm div{
     border-style: dashed;
     width: 350px;
@@ -209,7 +221,7 @@ nav:nth-child(1) {
     text-align: center;
 }
 
-.mainForm label, .mainSignForm label {
+.mainForm label, .mainSignForm label{
     display: inline-block;
     width: 100px;
     margin-right: 20px;
@@ -218,7 +230,16 @@ nav:nth-child(1) {
     font-size: 1.2em;
 }
 
-label.loginLabel, label.signupLabel{
+.settingsForm label{
+    display: inline-block;
+    margin-right: 20px;
+    margin-left: 5px;
+    padding:15px;
+    font-size: 1.2em;
+}
+
+
+label.loginLabel, label.signupLabel, label.passwordChange{
     font-style: italic;
     font-size: 1.5em;
     margin-left:115px;
@@ -262,11 +283,15 @@ label.noAccountLabel{
     background-color: #338acc;
 }
 
-#profileName, #user, #pass, #pass2 {
+#profileName, #user, #pass, #pass2, #newpass, #newpass2 {
     text-align: center;
     font-size: 1.1em;
     width: 180px;
     border-radius: 6px;
+}
+
+#newpass, #newpass2 {
+    width: 190px;
 }
 
 #profileName:focus, #user:focus, #pass:focus, #pass2:focus {

@@ -14,9 +14,10 @@
 
 <body>
   <nav>{{!-- <a href="/login"> --}}<img id="logo" src="/assets/img/single-note-music.png" alt="face logo" /></a>
-    <div class="navlink"><a href="/maker">Create</a></div>
+    <div class="navlink"><a id="createButton" href="/maker">Create</a></div>
     <div class="navlink"><a href="/songs">All Songs</a></div>
-    <div class="navlink"><a href="/myPage">My Page</a></div>
+    <div class="navlink"><a id="myPageButton" href="/myPage">My Page</a></div> 
+    <div class="navlink"><a id="settingsButton" href="/settings">Settings</a></div>
     <div class="navlink-logout"><a href="/logout">Log out</a></div>
   </nav>
   <div id="createForms">
@@ -25,6 +26,8 @@
     <section id="makePlaylist">
     </section>
   </div>
+  <section id ="content">
+  </section>
   <section id="songs">
   </section>
   <div id="songMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box" />

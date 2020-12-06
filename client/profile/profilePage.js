@@ -3,22 +3,23 @@
 //JSX is secured against unsafe input and has a 'this' context so each object
 //  made of it can have its own variable scope
 const ProfileForm = function (props) {
-    //const songNodes = props.songs.map(function (song) {
+    const songNodes = props.songs.map(function (song) {
         //console.dir(song)
         return (
-            <div /* key={song._id}  */className="accounts">
+            <div key={song._id} className="accounts">
                 <img src="/assets/img/profile-notes.png" alt= "domo face" className="domoFaceProfile"/>
-                <h3 className="profileName"> Name: {/* {song.user} */}</h3>
-                <h3 className="profileUsername"> Username: {/* {song.personName} */}</h3>
+                <h3 className="profileName"> Name: {song.user}</h3>
+                <h3 className="profileUsername"> Username: {song.personName}</h3>
+                <input type="hidden" name="_csrf" value={props.csrf} />
             </div>
         );
-    //});
+    });
 
-    /* return (
+    return (
         <div className= "profileInfo">
             {songNodes}
         </div>
-    ); */
+    );
 
     /* //const profileNodes = props.accounts.map(function(accounts){
         return (
@@ -76,37 +77,28 @@ const SongList = function (props) {
 };
 
 const loadSongsFromServer = () => {
-    sendAjax('GET', '/myPage', null, (data) => {
-        ReactDOM.render(
-            <SongList songs={data.songs} />, document.querySelector("#songs")
-        );
-    });
-
-    /* sendAjax('GET', '/getSongs', null, (data) => {
+    /* sendAjax('GET', '/myPage', null, (data) => {
         ReactDOM.render(
             <SongList songs={data.songs} />, document.querySelector("#songs")
         );
     }); */
-};
-
-//accepts a Cross-Site_request-Forgery (CSRF) token to add to the login form
-//without token, security on the server will prevent the form from working
-const createLoginWindow = (csrf) => {
-    ReactDOM.render(
-        <ProfileForm csrf={csrf} />,
-        document.querySelector("#content")
-    );
-
-    ReactDOM.render(
-        <SongList songs={[]} />, document.querySelector("#songs")
-    );
-
-    loadSongsFromServer();
+    sendAjax('GET', '/allSongs', null, (data) => {
+        ReactDOM.render(
+            <SongList songs={data.songs} />, document.querySelector("#songs")
+        );
+    });
 };
 
 //attach events to page buttons
 const setup = (csrf) => {
-    createLoginWindow(csrf); //default window
+    ReactDOM.render(
+        <ProfileForm csrf={csrf} />, document.querySelector("#content")
+    );
+    /* ReactDOM.render(
+        <SongList songs={[]} />, document.querySelector("#songs")
+    ); */
+    //loadSongsFromServer();
+    //createLoginWindow(csrf); //default window
 };
 
 //allow us to get CSRF token for new submissions

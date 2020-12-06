@@ -63,6 +63,11 @@ const makeSong = (req, res) => {
 };
 
 const userSongs = (req, res) => {
+  if (!req.body.name || !req.body.artist || !req.body.rating
+    || !req.body.genre || !req.body.favorite) {
+    return res.status(400).json({ error: 'Oops! All fields are required' });
+  }
+
   const songData = {
     name: req.body.name,
     artist: req.body.artist,
@@ -107,7 +112,7 @@ const getSongs = (request, response) => {
 };
 
 const getAllSongs = (request, response) => {
-  //const req = request;
+  // const req = request;
   const res = response;
 
   return Song.SongModel.findAll((err, docs) => {
