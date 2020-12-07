@@ -13,14 +13,16 @@ var ProfileForm = function ProfileForm(props) {
 
 
   var songNodes = props.songs.map(function (song) {
-    console.dir(song);
+    console.dir(song); //format date
+
     var today = new Date(song.createdDate);
     var formattedDate = today.toLocaleDateString('en-gb', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
       timeZone: 'utc'
-    });
+    }); //display all information
+
     return /*#__PURE__*/React.createElement("div", {
       key: song._id,
       className: "song"
@@ -37,13 +39,15 @@ var ProfileForm = function ProfileForm(props) {
     }, " Date Added: ", formattedDate), /*#__PURE__*/React.createElement("h3", {
       className: "songUser"
     }, " User: ", song.user));
-  });
+  }); //return information
+
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
   }, /*#__PURE__*/React.createElement("h3", {
     className: "songLabel"
   }, "Your Added Songs:"), songNodes);
-};
+}; //load in song data from /getSongs endpoint
+
 
 var loadSongsFromServer = function loadSongsFromServer() {
   sendAjax('GET', '/getSongs', null, function (data) {
@@ -74,19 +78,22 @@ $(document).ready(function () {
 });
 "use strict";
 
+/* Handles any error, if field is missing, et.c */
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
   $("#songMessage").animate({
     width: 'toggle'
   }, 350);
-};
+}; //redirect page
+
 
 var redirect = function redirect(response) {
   $("#songMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
-};
+}; //send data to json
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({

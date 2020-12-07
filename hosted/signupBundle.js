@@ -6,17 +6,19 @@ var handleSignup = function handleSignup(e) {
   e.preventDefault();
   $("#songMessage").animate({
     width: 'hide'
-  }, 350);
+  }, 350); //throw error if there are missing fields
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
     handleError("Oops! All fields are required");
     return false;
-  }
+  } //throw error if the passwords dont match
+
 
   if ($("#pass").val() !== $("#pass2").val()) {
     handleError("Ahh! Passwords don't match");
     return false;
-  }
+  } //correct information if valid
+
 
   sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   return false;
@@ -91,19 +93,22 @@ $(document).ready(function () {
 });
 "use strict";
 
+/* Handles any error, if field is missing, et.c */
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
   $("#songMessage").animate({
     width: 'toggle'
   }, 350);
-};
+}; //redirect page
+
 
 var redirect = function redirect(response) {
   $("#songMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
-};
+}; //send data to json
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({

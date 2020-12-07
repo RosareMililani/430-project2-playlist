@@ -6,14 +6,15 @@ var handleLogin = function handleLogin(e) {
   e.preventDefault();
   $("#songMessage").animate({
     width: 'hide'
-  }, 350);
+  }, 350); //throw error is there is a missing field
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
     handleError("Oops! Username or password is empty");
     return false;
   }
 
-  console.log($("input[name=_csrf]").val());
+  console.log($("input[name=_csrf]").val()); //correct information is valid
+
   sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
   return false;
 }; //JSX is a cutsom syntax provided by React that lets you create HTML-like 
@@ -82,19 +83,22 @@ $(document).ready(function () {
 });
 "use strict";
 
+/* Handles any error, if field is missing, et.c */
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
   $("#songMessage").animate({
     width: 'toggle'
   }, 350);
-};
+}; //redirect page
+
 
 var redirect = function redirect(response) {
   $("#songMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
-};
+}; //send data to json
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({
