@@ -1,5 +1,6 @@
 "use strict";
 
+//checks if all information is filled out 
 var handleSong = function handleSong(e) {
   e.preventDefault();
   $("#songMessage").animate({
@@ -11,13 +12,20 @@ var handleSong = function handleSong(e) {
     return false;
   }
 
-  sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {//loadSongsFromServer();
+  sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
+    //loadSongsFromServer();
+    handleError("Song has been added!"); //clear values on submit
+
+    $("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '' || $("#songImage").val() == '';
   });
   return false;
-};
+}; //creates the information that will be stored
+
 
 var SongForm = function SongForm(props) {
-  return /*#__PURE__*/React.createElement("form", {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
+    className: "songLabelInfo"
+  }, "Add Your Song Here:"), /*#__PURE__*/React.createElement("form", {
     id: "songForm",
     onSubmit: handleSong,
     name: "songForm",
@@ -113,9 +121,7 @@ var SongForm = function SongForm(props) {
     className: "resetSong",
     type: "reset",
     value: "Clear!"
-  }), /*#__PURE__*/React.createElement("label", {
-    className: "displayError"
-  }, "Message: "));
+  })));
 }; //render out SongForm to the page and render default SongsList
 //songs attribute of SongList is empty array - because we dont have 
 //  data yet, but will at least get the HTML onto the page while waiting 

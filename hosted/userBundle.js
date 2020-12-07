@@ -1,5 +1,6 @@
 "use strict";
 
+//creates the list of songs to be displayed, only grabs the information needed
 var SongList = function SongList(props) {
   //reality check - but should never happen
   if (props.songs.length === 0) {
@@ -8,7 +9,8 @@ var SongList = function SongList(props) {
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptySong"
     }, "No Songs Avaliable"));
-  }
+  } //grabs the needed stored information 
+
 
   var songNodes = props.songs.map(function (song) {
     return /*#__PURE__*/React.createElement("div", {
@@ -25,12 +27,13 @@ var SongList = function SongList(props) {
     }, " Artist: ", song.artist), /*#__PURE__*/React.createElement("h3", {
       className: "songUserName"
     }, "Added By: ", song.user));
-  });
+  }); //displays the information
+
   return /*#__PURE__*/React.createElement("div", {
     className: "songList"
   }, /*#__PURE__*/React.createElement("h3", {
     className: "songLabel"
-  }, "All Users Songs:"), songNodes);
+  }, "See What Others added:"), songNodes);
 }; //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 

@@ -12,6 +12,7 @@ const ProfileForm = function (props) {
     //if there is data, display onto screen
     const songNodes = props.songs.map(function (song) {
         console.dir(song)
+        //format date
         let today = new Date(song.createdDate);
         let formattedDate = today.toLocaleDateString(
             'en-gb',

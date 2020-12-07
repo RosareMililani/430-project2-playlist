@@ -24,7 +24,7 @@ const SongList = function (props) {
     //displays the information
     return (
         <div className="songList">
-            <h3 className="songLabel">All Users Songs:</h3>
+            <h3 className="songLabel">See What Others added:</h3>
             {songNodes}
         </div>
     );
