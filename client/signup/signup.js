@@ -5,16 +5,19 @@ const handleSignup = (e) => {
 
     $("#songMessage").animate({ width: 'hide' }, 350);
 
+    //throw error if there are missing fields
     if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
         handleError("Oops! All fields are required");
         return false;
     }
 
+    //throw error if the passwords dont match
     if ($("#pass").val() !== $("#pass2").val()) {
         handleError("Ahh! Passwords don't match");
         return false;
     }
 
+    //correct information if valid
     sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
 
     return false;

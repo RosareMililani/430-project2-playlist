@@ -4,6 +4,7 @@ const { Song } = models;
 
 const makerPage = (req, res) => {
   // res.render('app');
+  // find the owners song - they have added that is stored
   Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -14,6 +15,7 @@ const makerPage = (req, res) => {
   });
 };
 
+// finds all the songs any user had added - used inside login
 const songPage = (req, res) => {
   Song.SongModel.findAll((err, docs) => {
     if (err) {
@@ -25,6 +27,8 @@ const songPage = (req, res) => {
   });
 };
 
+// finds all the songs any user had added - used outside login
+// same code as above, but needs to be redirected on different pages
 const songPageOut = (req, res) => {
   Song.SongModel.findAll((err, docs) => {
     if (err) {
@@ -36,7 +40,8 @@ const songPageOut = (req, res) => {
   });
 };
 
-// lead to info page
+// finds all of the users songs they have added
+// load onto 'my songs'
 const myPage = (req, res) => {
   Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
@@ -48,18 +53,20 @@ const myPage = (req, res) => {
   });
 };
 
+// used on the create page, stores data for calling use
 const makeSong = (req, res) => {
+  // makes sure all information is filled out
   if (!req.body.name || !req.body.artist || !req.body.rating
     || !req.body.genre || !req.body.image) {
     return res.status(400).json({ error: 'Oops! All fields are required' });
   }
 
+  // song information
   const songData = {
     name: req.body.name,
     artist: req.body.artist,
     rating: req.body.rating,
     genre: req.body.genre,
-    /* favorite: req.body.favorite, */
     image: req.body.image,
     owner: req.session.account._id,
     user: req.session.account.username,
@@ -74,41 +81,7 @@ const makeSong = (req, res) => {
   songPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Song already exists' });
-    }
-
-    return res.status(400).json({ error: 'An error occured' });
-  });
-
-  return songPromise;
-};
-
-const userSongs = (req, res) => {
-  if (!req.body.name || !req.body.artist || !req.body.rating
-    || !req.body.genre || !req.body.image) {
-    return res.status(400).json({ error: 'Oops! All fields are required' });
-  }
-
-  const songData = {
-    name: req.body.name,
-    artist: req.body.artist,
-    rating: req.body.rating,
-    genre: req.body.genre,
-    /* favorite: req.body.favorite, */
-    image: req.body.image,
-    owner: req.session.account._id,
-    user: req.session.account.username,
-  };
-
-  const newSong = new Song.SongModel(songData);
-
-  const songPromise = newSong.save();
-
-  songPromise.then(() => res.json({ redirect: '/songs' }));
-
-  songPromise.catch((err) => {
-    console.log(err);
-    if (err.code === 11000) {
+      // checks if the songs already exists in account
       return res.status(400).json({ error: 'Song already exists' });
     }
 
@@ -151,6 +124,7 @@ const getAllSongs = (request, response) => {
   });
 };
 
+// exports
 module.exports.makerPage = makerPage;
 module.exports.songPage = songPage;
 module.exports.songPageOut = songPageOut;
@@ -158,6 +132,6 @@ module.exports.myPage = myPage;
 module.exports.getSongs = getSongs;
 module.exports.getAllSongs = getAllSongs;
 module.exports.make = makeSong;
-module.exports.mySongs = userSongs;
-module.exports.song = userSongs;
+module.exports.mySongs = makeSong;
+module.exports.song = makeSong;
 module.exports.allSong = makeSong;

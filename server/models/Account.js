@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+// variables
 let AccountModel = {};
 const iterations = 10000;
 const saltLength = 64;
 const keyLength = 64;
 
+// schema that will create our data
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -37,6 +39,7 @@ AccountSchema.statics.toAPI = (doc) => ({
   _id: doc._id,
 });
 
+// checks password
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 
@@ -48,21 +51,26 @@ const validatePassword = (doc, password, callback) => {
   });
 };
 
+// look for username
 AccountSchema.statics.findByUsername = (name, callback) => {
   const search = {
     username: name,
   };
 
+  // look for the one account that is being entered
   return AccountModel.findOne(search, callback);
 };
 
+// used for password (security)
 AccountSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
   crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => callback(salt, hash.toString('hex')));
 };
 
+// authenticate account by the information the invidual has entered
 AccountSchema.statics.authenticate = (username, password, callback) => {
+  // look for the username account in data
   AccountModel.findByUsername(username, (err, doc) => {
     if (err) {
       return callback(err);
@@ -72,6 +80,7 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
       return callback();
     }
 
+    // check password
     return validatePassword(doc, password, (result) => {
       if (result === true) {
         return callback(null, doc);
@@ -84,5 +93,6 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
 
 AccountModel = mongoose.model('Account', AccountSchema);
 
+// export
 module.exports.AccountModel = AccountModel;
 module.exports.AccountSchema = AccountSchema;

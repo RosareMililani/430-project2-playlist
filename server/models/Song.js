@@ -10,6 +10,7 @@ let SongModel = {};
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
+// information to be stored for when creating a new song
 const SongSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -59,6 +60,7 @@ const SongSchema = new mongoose.Schema({
   },
 });
 
+// store and send data for use
 SongSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   artist: doc.artist,
@@ -69,22 +71,27 @@ SongSchema.statics.toAPI = (doc) => ({
   user: doc.user,
 });
 
+// find the song information in a particular user
 SongSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
 
+  // return the following information to be used on the client side
   return SongModel.find(search).select('name artist rating genre image createdDate user').lean().exec(callback);
 };
 
+// find all song - by all users
 SongSchema.statics.findAll = (callback) => {
   const search = {
   };
 
+  // send only 4 of the information (not all information will be used)
   return SongModel.find(search).select('name artist user image').lean().exec(callback);
 };
 
 SongModel = mongoose.model('Song', SongSchema);
 
+// export
 module.exports.SongModel = SongModel;
 module.exports.SongSchema = SongSchema;
