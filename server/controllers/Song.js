@@ -7,7 +7,7 @@ const makerPage = (req, res) => {
   // find the owners song - they have added that is stored
   Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
@@ -19,7 +19,7 @@ const makerPage = (req, res) => {
 const songPage = (req, res) => {
   Song.SongModel.findAll((err, docs) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
@@ -32,7 +32,7 @@ const songPage = (req, res) => {
 const songPageOut = (req, res) => {
   Song.SongModel.findAll((err, docs) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
@@ -45,7 +45,7 @@ const songPageOut = (req, res) => {
 const myPage = (req, res) => {
   Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
@@ -79,7 +79,7 @@ const makeSong = (req, res) => {
   songPromise.then(() => res.json({ redirect: '/maker' }));
 
   songPromise.catch((err) => {
-    console.log(err);
+    // console.log(err);
     if (err.code === 11000) {
       // checks if the songs already exists in account
       return res.status(400).json({ error: 'Song already exists' });
@@ -101,7 +101,7 @@ const getSongs = (request, response) => {
 
   return Song.SongModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 
@@ -116,7 +116,7 @@ const getAllSongs = (request, response) => {
 
   return Song.SongModel.findAll((err, docs) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
 

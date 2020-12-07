@@ -94,7 +94,7 @@ const signup = (request, response) => {
     });
 
     savePromise.catch((err) => {
-      console.log(err);
+      // console.log(err);
 
       // check if the username exists
       if (err.code === 11000) {
