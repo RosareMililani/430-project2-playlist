@@ -5,6 +5,7 @@ const handleLogin = (e) => {
 
     $("#songMessage").animate({ width: 'hide' }, 350);
 
+    //throw error is there is a missing field
     if ($("#user").val() == '' || $("#pass").val() == '') {
         handleError("Oops! Username or password is empty");
         return false;
@@ -12,6 +13,7 @@ const handleLogin = (e) => {
 
     console.log($("input[name=_csrf]").val());
 
+    //correct information is valid
     sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
 
     return false;

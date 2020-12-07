@@ -5,18 +5,17 @@ var handleSong = function handleSong(e) {
   e.preventDefault();
   $("#songMessage").animate({
     width: 'hide'
-  }, 350);
+  }, 350); //not all information is added - show error
 
   if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '' || $("#songImage").val() == '') {
     handleError("Oops! All fields are required");
     return false;
-  }
+  } //all information has been added - show added message
+
 
   sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
     //loadSongsFromServer();
-    handleError("Song has been added!"); //clear values on submit
-
-    $("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' || $("#songGenre").val() == '' || $("#songImage").val() == '';
+    handleError("Song has been added!");
   });
   return false;
 }; //creates the information that will be stored

@@ -4,12 +4,14 @@ const handleSong = (e) => {
 
     $("#songMessage").animate({ width: 'hide' }, 350);
 
+    //not all information is added - show error
     if ($("#songName").val() == '' || $("#songArtist").val() == '' || $("#songRating").val() == '' ||
         $("#songGenre").val() == '' || $("#songImage").val() == '') {
         handleError("Oops! All fields are required");
         return false;
     }
 
+    //all information has been added - show added message
     sendAjax('POST', $("#songForm").attr("action"), $("#songForm").serialize(), function () {
         //loadSongsFromServer();
         handleError("Song has been added!");
@@ -65,9 +67,7 @@ const SongForm = (props) => {
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <input className="makeSongSubmit" type="submit" value="Add Song!" />
                 <input className="resetSong" type="reset" value="Clear!" />
-                
             </form>
-            {/* <label id="songMessage" className="displayError">Message: </label> */}
         </div>
 
     );

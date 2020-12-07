@@ -173,7 +173,7 @@ nav:nth-child(1) {
 }
 
 .mainForm, .settingsForm{
-    height: 300px;
+    height: 250px;
     width: 350px;
     margin: 0 auto;
     font-size: 1.2em;
@@ -185,7 +185,7 @@ nav:nth-child(1) {
 }
 
 .mainSignForm {
-    height: 400px;
+    height: 300px;
     width: 350px;
     margin: 0 auto;
     font-size: 1.2em;
@@ -208,7 +208,7 @@ nav:nth-child(1) {
 .mainSignForm div{
     border-style: dashed;
     width: 350px;
-    height:330px;
+    height:300px;
     margin-top: 50%;
 }
 
@@ -495,10 +495,6 @@ h3.songLabel, h3.songLabelInfo {
     text-decoration: underline;
     text-align:center;
 }
-
-/* h3.songLabelInfo {
-    
-} */
 
 h3.profileNotes {
     float: left;
