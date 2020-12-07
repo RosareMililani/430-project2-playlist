@@ -38,6 +38,9 @@ const router = (app) => {
   app.get('/maker', mid.requiresLogin, controllers.Song.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Song.make);
 
+  // found outside of page
+  app.get('/about', mid.requiresSecure, mid.requiresLogout, controllers.Account.aboutPage);
+
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 

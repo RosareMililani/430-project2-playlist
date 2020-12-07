@@ -18,6 +18,11 @@ const settingsPage = (req, res) => {
   res.render('settings', { csrfToken: req.csrfToken() });
 };
 
+// render the settings page
+const aboutPage = (req, res) => {
+  res.render('about', { csrfToken: req.csrfToken() });
+};
+
 // remove a user session - on logout
 const logout = (req, res) => {
   req.session.destroy();
@@ -162,6 +167,7 @@ const getToken = (request, response) => {
 module.exports.loginPage = loginPage;
 module.exports.signUpPage = signUpPage;
 module.exports.settingsPage = settingsPage;
+module.exports.aboutPage = aboutPage;
 module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;

@@ -30,7 +30,7 @@ nav:nth-child(1) {
     padding-left: 25px;
 }
 
-.navlink {
+.navlink, .navlink-about {
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
@@ -39,7 +39,12 @@ nav:nth-child(1) {
     float: left;
 }
 
-.navlink-logout, .navlink-songs {
+.navlink-about {
+    text-align:center;
+    margin-left:30%;
+}
+
+.navlink-logout, .navlink-songs{
     padding: 5px;
     padding-top: 12px;
     padding-right: 20px;
@@ -49,9 +54,10 @@ nav:nth-child(1) {
     float: right;
 }
 
-.navlink a, .navlink-logout a, .navlink-songs a, .navlink a:link, .navlink-logout a:link, .navlink-songs a:link, 
-.navlink a:visited, .navlink-logout a:visited, .navlink-songs a:visited, .navlink a:hover, .navlink-logout a:hover, 
-.navlink-songs a:hover, .navlink a:active, .navlink-logout a:active, .navlink-songs a:active {
+.navlink a, .navlink-logout a, .navlink-songs a, .navlink-about a, .navlink a:link, .navlink-logout a:link, .navlink-songs a:link, 
+.navlink-about a:link, .navlink a:visited, .navlink-logout a:visited, .navlink-songs a:visited, .navlink-about a:visited, 
+.navlink a:hover, .navlink-logout a:hover, .navlink-songs a:hover, .navlink-about a:hover, .navlink a:active, 
+.navlink-logout a:active, .navlink-songs a:active, .navlink-about a:active {
     color: white;
     text-decoration: none;
     padding: 5px;
@@ -65,9 +71,23 @@ nav:nth-child(1) {
     background-color: #2aa78f;
 }
 
+#content-info{
+    width:630px;
+    text-align:center;
+    margin:auto;
+    padding-top: 20px;
+}
+
+#content-info h1{
+    font-size: 2.5em;
+}
+
+#content-info h3{
+    font-size: 1.4em;
+}
+
 .songForm {
     border-style: dashed;
-    /* height: 475px; */
     height:350px;
     width: 320px;
     margin-top: 15px;
