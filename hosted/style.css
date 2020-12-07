@@ -1,3 +1,7 @@
+*{
+    font-family: 'Overpass', sans-serif;
+
+}
 html, body {
     height: 100%;
     width: 100%;
@@ -62,11 +66,10 @@ nav:nth-child(1) {
 }
 
 .songForm {
-    /* border: 2px solid #338acc; */
     border-style: dashed;
     /* height: 475px; */
     height:350px;
-    width: 300px;
+    width: 320px;
     margin-top: 15px;
     margin-left: 40%;
     padding-top: 10px;
@@ -77,10 +80,10 @@ nav:nth-child(1) {
 
 .songForm label {
     display: inline-block;
-    width: 100px;
+    width: 110px;
     margin-left: 5px;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin-right: 5px;
+    margin-top: 8px;
     margin-bottom: 10px;
     font-size: 1.2em;
     float: left;
@@ -88,7 +91,7 @@ nav:nth-child(1) {
 }
 
 .songForm input[type=text] {
-    float: left;
+    /* float: left; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -104,6 +107,7 @@ nav:nth-child(1) {
     float: left;
     margin-right:100px;
     margin-left: 10px;
+    margin-bottom:5px;
 }
 
 #songGenre {
@@ -120,10 +124,10 @@ nav:nth-child(1) {
     border-radius: 2px;
     color: white;
     text-decoration: none;
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: 10px;
     margin-right: 81px;
-    margin-left: 15px;
+    margin-left: 30px;
 }
 
 .resetSong {
@@ -209,7 +213,6 @@ nav:nth-child(1) {
     font-size: 1.2em;
 }
 
-
 label.loginLabel, label.signupLabel, label.passwordChange{
     font-style: italic;
     font-size: 1.5em;
@@ -220,13 +223,8 @@ label.loginLabel, label.signupLabel, label.passwordChange{
     text-align:center;
 }
 
-label.noAccountLabel{
-    margin-top:20px;
-    margin-bottom:30px;
-    width:240px;
-    font-size:1em;
-    font-style: italic;
-    text-align:center;
+label.passwordChange {
+    margin-left:21%;
 }
 
 .formSubmit {
@@ -239,7 +237,7 @@ label.noAccountLabel{
     width: 100px;
     /* background-color: #55acee; */
     border-radius: 4px;
-    border-color: #66acee;
+    border-color: #2cb49a;
     padding: 3px 0px;
     /* color: white; */
     text-decoration: none;
@@ -251,10 +249,10 @@ label.noAccountLabel{
 
 .formSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #338acc;
+    background-color: #2aa78f;
 }
 
-#profileName, #user, #pass, #pass2, #newpass, #newpass2 {
+#user, #pass, #pass2, #newpass, #newpass2 {
     text-align: center;
     font-size: 1.1em;
     width: 180px;
@@ -265,19 +263,17 @@ label.noAccountLabel{
     width: 190px;
 }
 
-#profileName:focus, #user:focus, #pass:focus, #pass2:focus {
+#user:focus, #pass:focus, #pass2:focus {
     outline: none;
     box-shadow: 0px 0px 1px 1px #55acee;
 }
 
 h3.messageLabel {
-    /* margin-bottom: 10px; */
     margin-left:40%;
 }
 
 #songMessage {
     display: none;
-    /* top: 250px; */
     width: 300px;
     height: 650px;
     margin-right:40%;
@@ -393,7 +389,7 @@ h3.songArtist {
     font-weight: bold;
     padding-right: 50px;
     font-size: 1.5em;
-    font-style: italic;
+    /* font-style: italic; */
 }
 
 h3.songArtistAll {
@@ -402,7 +398,7 @@ h3.songArtistAll {
     width: 220px;
     font-weight: bold;
     font-size: 1.5em;
-    font-style: italic;
+    /* font-style: italic; */
 }
 
 h3.songUserName {
@@ -412,7 +408,7 @@ h3.songUserName {
     font-weight: bold;
     padding-right: 50px;
     font-size: 1.3em;
-    font-style: italic;
+    /* font-style: italic; */
 }
 
 h3.songRating {
@@ -453,31 +449,18 @@ h3.songUser {
     padding-left: 50px;
     font-size: 1.2em;
 }
-/* comment out float */
-/* h3.songLabel {
-    float:left;
-    width: 200px;
-    font-weight: bold;
-    padding-left: 65px;
-    font-size: 1.5em;
-    text-decoration: underline;
-} */
 
 h3.songLabel, h3.songLabelInfo {
     width: 300px;
     font-weight: bold;
-    padding-left: 40%;
+    padding-left: 35%;
     font-size: 1.5em;
     text-decoration: underline;
     text-align:center;
 }
 
-h3.profileNotes {
-    float: left;
-    width: 200px;
-    font-weight: bold;
-    padding-left: 40px;
-    font-size: 1.5em;
+h3.songLabelInfo {
+    padding-left: 41%;
 }
 
 .song:first-child {

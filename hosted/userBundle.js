@@ -33,7 +33,7 @@ var SongList = function SongList(props) {
     className: "songList"
   }, /*#__PURE__*/React.createElement("h3", {
     className: "songLabel"
-  }, "See What Others added:"), songNodes);
+  }, "See What Others Added:"), songNodes);
 }; //grabs songs from the server and render a SongsList
 //periodically update the screen with changes
 
