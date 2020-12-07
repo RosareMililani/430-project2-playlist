@@ -108,7 +108,11 @@ var SongForm = function SongForm(props) {
     value: "/assets/img/pixel-music.png"
   }, "Pixel Music"), /*#__PURE__*/React.createElement("option", {
     value: "/assets/img/favorite-note.png"
-  }, "Favorite Note")), /*#__PURE__*/React.createElement("input", {
+  }, "Favorite Note"), /*#__PURE__*/React.createElement("option", {
+    value: "/assets/img/piano-pixel.png"
+  }, "Piano Pixel"), /*#__PURE__*/React.createElement("option", {
+    value: "/assets/img/clover-note.png"
+  }, "Clover Note")), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf

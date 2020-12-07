@@ -63,6 +63,8 @@ const SongForm = (props) => {
                     <option value="/assets/img/profile-notes.png">Profile Notes</option>
                     <option value="/assets/img/pixel-music.png">Pixel Music</option>
                     <option value="/assets/img/favorite-note.png">Favorite Note</option>
+                    <option value="/assets/img/piano-pixel.png">Piano Pixel</option>
+                    <option value="/assets/img/clover-note.png">Clover Note</option>
                 </select>
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <input className="makeSongSubmit" type="submit" value="Add Song!" />
