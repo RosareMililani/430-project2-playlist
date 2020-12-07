@@ -3,24 +3,26 @@
 // handles the update function for the password change
 var handleUpdate = function handleUpdate(e) {
   e.preventDefault();
-  $("#postMessage").animate({
+  $("#songMessage").animate({
     width: 'hide'
-  }, 350);
+  }, 350); //any of the passcodes are not inputted
 
-  if ($("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("All fields are required to change password");
+  if ($("#newpass").val() == '' || $("#newpass2").val() == '') {
+    handleError("Oops! All fields are required!");
     return false;
-  }
+  } //passwords do not match each other
 
-  if ($("#pass").val() !== $("#pass2").val()) {
+
+  if ($("#newpass").val() !== $("#newpass2").val()) {
     handleError("Passwords do not match");
     return false;
   }
 
-  alert("You have changed your password");
+  handleError("Your password has been updated!");
   sendAjax('POST', $("#settingsForm").attr("action"), $("#settingsForm").serialize(), redirect);
   return false;
-};
+}; //update the password to the current account (logged in)
+
 
 var updatePassword = function updatePassword(request, response) {
   var req = request;

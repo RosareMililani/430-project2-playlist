@@ -2,24 +2,28 @@
 const handleUpdate = (e) => {
     e.preventDefault();
 
-    $("#postMessage").animate({ width: 'hide' }, 350);
+    $("#songMessage").animate({ width: 'hide' }, 350);
 
-    if ($("#pass").val() == '' || $("#pass2").val() == '') {
-        handleError("All fields are required to change password");
+    //any of the passcodes are not inputted
+    if ($("#newpass").val() == '' || $("#newpass2").val() == '') {
+        handleError("Oops! All fields are required!");
         return false;
     }
 
-    if ($("#pass").val() !== $("#pass2").val()) {
+    //passwords do not match each other
+    if ($("#newpass").val() !== $("#newpass2").val()) {
         handleError("Passwords do not match");
         return false;
     }
-    alert("You have changed your password");
+
+    handleError("Your password has been updated!");
 
     sendAjax('POST', $("#settingsForm").attr("action"), $("#settingsForm").serialize(), redirect);
 
     return false;
 };
 
+//update the password to the current account (logged in)
 const updatePassword = (request, response) => {
     const req = request;
     const res = response;
