@@ -1,4 +1,4 @@
-// will be called to grab certain functions in the folders
+// will be called to grab certain functions in the folder
 const controllers = require('./controllers');
 const mid = require('./middleware');
 
