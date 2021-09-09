@@ -5,3 +5,13 @@ workflows:
   node-tests:
     jobs:
       - node/test
+  daily:
+    jobs:
+      - node/test
+    triggers:
+      - schedule:
+          cron: 0 4 * * *
+          filters:
+            branches:
+              only:
+                - master
